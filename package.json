@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "express": "^4.16.4",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-redux": "^6.0.0",
@@ -12,12 +13,15 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "node ./build/server.js",
+    "start:dev": "react-scripts start",
+    "build": "react-scripts build && npm run babel",
+    "babel": "babel server.js -d build",
     "test": "react-scripts test",
-    "coverage": "npm run test -- --coverage", 
+    "coverage": "npm run test -- --coverage",
     "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "heroku-postbuild": "npm run build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -29,6 +33,8 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
     "coveralls": "^3.0.2",
     "eslint-config-airbnb": "^17.1.0",
     "jest-dom": "^3.0.0",
