@@ -1,7 +1,9 @@
 {
   "addons": [],
   "buildpacks": [],
-  "env": {},
+  "env": {
+    "REACT_APP_API_URL": "https://balder-ah-backend-staging.herokuapp.com/api"
+  },
   "formation": {},
   "name": "balder-ah-frontend",
   "scripts": {},
