@@ -1,0 +1,67 @@
+@import "./partials/colors";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+}
+
+html,
+body {
+  color: $color-dark;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.flash {
+  border-radius: 5px;
+  margin: 10px 0;
+  padding: 10px;
+  width: 100%;
+
+  &.flash-success {
+    background-color: lighten($color-success, 55%);
+    color: $color-success;
+  }
+  &.flash-danger {
+    background-color: lighten($color-danger, 45%);
+    color: $color-danger;
+  }
+}
+
+.none {
+  display: none;
+}
+
+.btn {
+  background: transparent;
+  border: 1px solid $color-danger;
+  border-radius: 60px;
+  color: $color-danger;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+  outline: transparent;
+  padding: 15px 30px;
+  transition: all 0.3s;
+
+  &:hover {
+    background: $color-danger;
+    color: $color-white;
+  }
+}
+.btn-lg {
+  display: block;
+  width:100%;
+}
