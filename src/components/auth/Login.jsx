@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import ProptTypes from 'prop-types';
-import './Login.css';
-import Input from '../../presentation/Input';
-import { login } from '../../../actions';
-import Checkbox from '../../presentation/Checkbox';
+import PropTypes from 'prop-types';
+import './Login.scss';
+import Input from '../presentation/Input';
+import { login } from '../../actions';
+import Checkbox from '../presentation/Checkbox';
 
 class Login extends Component {
   state = {
@@ -13,12 +13,11 @@ class Login extends Component {
   };
 
   onLogin = async (formValues) => {
-    const { login: dispatchLogin } = this.props;
+    if (!formValues.email && !formValues.password) return null;
+    const { login: dispatchLogin, history } = this.props;
     this.setState({ error: null });
     const error = await dispatchLogin(formValues);
-    if (error) {
-      this.setState({ error });
-    }
+    return error ? this.setState({ error }) : history.push('/');
   };
 
   render() {
@@ -30,18 +29,17 @@ class Login extends Component {
 
     return (
       <div className="login">
-        <section className="login__form-container">
-          <form onSubmit={handleSubmit(this.onLogin)} className="login__form">
-            <h1 className="login__form-title">Welcome back</h1>
-            {!error && auth && auth.isLoggedIn ? (
-              <p className="alert alert-success">{auth.message}</p>
-            ) : (
-              <p className={error ? 'alert alert-danger' : 'none'}>{error}</p>
+        <section className="login-form-container">
+          <form onSubmit={handleSubmit(this.onLogin)} className="login-form">
+            <h1 className="login-form-title">Welcome back</h1>
+            {error && auth && !auth.isLoggedIn && (
+              <p className={error ? 'flash flash-danger' : 'none'}>{error}</p>
             )}
             <Field
               name={emailInput}
               type={emailInput}
               id={emailInput}
+              required
               placeholder="you@example.com"
               label="Email"
               component={Input}
@@ -51,21 +49,22 @@ class Login extends Component {
               type={passwordInput}
               id={passwordInput}
               placeholder="*********"
+              required
               label="Password"
               component={Input}
             />
-            <div className="input-group__flex">
-              <Field label="Remember me" name="rememberme" id="checkbox" component={Checkbox} />
+            <div className="input-group-flex">
+              <Field label="Remember me" name="rememberMe" id="checkbox" component={Checkbox} />
               <span className="link">Forgot password?</span>
             </div>
             <div className="input-group">
-              <button type="submit" className="btn">
+              <button type="submit" className="btn btn-lg">
                 Login
               </button>
             </div>
           </form>
         </section>
-        <section className="login__img" />
+        <section className="login-img" />
       </div>
     );
   }
@@ -77,8 +76,8 @@ Login.defaultProps = {
 };
 
 Login.propTypes = {
-  handleSubmit: ProptTypes.func,
-  auth: ProptTypes.oneOfType([ProptTypes.any, ProptTypes.object]),
+  handleSubmit: PropTypes.func,
+  auth: PropTypes.oneOfType([PropTypes.any, PropTypes.object]),
 };
 
 const mapStateToProps = state => ({

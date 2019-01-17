@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Input = ({
-  type, id, label, placeholder, input,
+  input, id, label, ...otherProps
 }) => (
   <div className="input-group">
     <label htmlFor={id}>
       {label}
-      <input {...input} id={id} type={type} placeholder={placeholder} />
+      <input {...input} id={id} {...otherProps} />
     </label>
   </div>
 );

@@ -1,3 +1,4 @@
-export default {
-  LOG_IN: 'LOG_IN',
-};
+export const LOG_IN = 'LOG_IN';
+export const SIGN_UP = 'SIGN_UP';
+export const SUCCESS_SIGNUP_MESSAGE = 'SUCCESS_SIGNUP_MESSAGE';
+export const ERROR_SIGNUP_MESSAGE = 'ERROR_SIGNUP_MESSAGE';

@@ -1,21 +1,20 @@
 import axios from '../utils/axiosInstance';
-import types from './types';
+import { LOG_IN } from './types';
 import authUtils from '../utils/auth';
 
-const { LOG_IN } = types;
-
-export const demo = () => {};
-
-export const login = formData => dispatch => axios
-  .post('/users/login', formData)
-  .then(({ data }) => {
+// eslint-disable-next-line import/prefer-default-export
+export const login = formData => async (dispatch) => {
+  try {
+    const { data } = await axios.post('/users/login', formData);
     authUtils.saveUserToken(data.token);
     dispatch({ type: LOG_IN, payload: data });
-  })
-  .catch(
-    ({
-      response: {
-        data: { message },
-      },
-    }) => message,
-  );
+    return null;
+  } catch ({
+    response: {
+      data: { message },
+    },
+  }) {
+    dispatch({ type: LOG_IN });
+    return message;
+  }
+};

@@ -1,11 +1,11 @@
-import types from '../actions/types';
-
-const { LOG_IN } = types;
+import { LOG_IN } from '../actions/types';
 
 export default (state = null, action) => {
-  switch (action.type) {
+  const { payload, type } = action;
+
+  switch (type) {
     case LOG_IN:
-      return { ...action.payload, isLoggedIn: true };
+      return payload ? { isLoggedIn: true } : { isLogged: false };
     default:
       return state;
   }
