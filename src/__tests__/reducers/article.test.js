@@ -30,6 +30,7 @@ const viewArticle = {
     description: 'trttr',
     body: 'rtrt',
     imgUrl: '',
+    getOneArticle: {},
   },
 };
 
@@ -38,6 +39,11 @@ const viewArticleError = {
   payload: {
     errorMessage: 'i do not think so',
   },
+};
+
+const likeError = {
+  type: 'LIKE_ERROR',
+  error: 'Request failed with status 403',
 };
 
 describe('Article Reducer', () => {
@@ -62,7 +68,9 @@ describe('Article Reducer', () => {
         description: 'trttr',
         body: 'rtrt',
         imgUrl: '',
+        getOneArticle: {},
       },
+      isLike: undefined,
     });
   });
 
@@ -101,6 +109,17 @@ describe('Article Reducer', () => {
           errorMessage: 'it is not done',
         },
       },
+    });
+  });
+
+  test('should fail to like an article', () => {
+    const state = articleReducer(undefined, likeError);
+
+    expect(state).toEqual({
+      ...initialState,
+      likeError: 'Request failed with status 403',
+      response: '',
+      type: 'LIKE_ERROR',
     });
   });
 });

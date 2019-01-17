@@ -111,3 +111,6 @@ h6 {
     }
   }
 }
+
+.like-style-unliked {font-size: 20px; color: $like-color-grey; cursor: pointer;}
+.like-style-liked {font-size: 20px; color: $like-color-red; cursor: pointer;}
