@@ -1,0 +1,111 @@
+@import "../../assets/sass/partials/colors";
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.row {
+  background-image: url("../../assets/images/signup-bg.jpg");
+  background-size: cover;
+  display: flex;
+  height: 100%;
+}
+
+.left-div {
+  height: 100vh;
+  width: 60%;
+}
+
+.form-area {
+  background: $color-white;
+  width: 40%;
+}
+
+.signup-form {
+  margin: 40px auto;
+  max-width: 400px;
+  padding: 30px 10px 0;
+}
+
+.form-header {
+  margin-bottom: 20px;
+}
+
+.message-box,
+.error-box {
+  box-shadow: 0 2px 2px 0 darken($color-light-gray, 20%);
+  height: auto;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.message-box {
+  background: #ddebdc;
+  color: #35532f;
+}
+
+.error-box,
+.error {
+  background: #efd9da;
+  color: #61283a;
+}
+
+.form-field input {
+  background: $color-light-gray;
+  border: 0;
+  border-radius: 5px;
+  box-sizing: border-box;
+  height: 50px;
+  margin-bottom: 20px;
+  margin-top: 5px;
+  outline: none;
+  padding: 5px 20px;
+  width: 100%;
+}
+
+input::placeholder {
+  font-size: 16px;
+}
+
+.form-field button {
+  background: $color-white;
+  border: 1px solid $color-danger;
+  border-radius: 50px;
+  color: $color-danger;
+  cursor: pointer;
+  font-size: 20px;
+  height: 50px;
+  margin-bottom: 20px;
+  margin-top: 5px;
+  outline: none;
+  text-align: center;
+  width: 100%;
+}
+
+.form-field button:hover {
+  background: $color-danger;
+  box-shadow: 0 2px 2px 0 darken($color-light-gray, 20%);
+  color: $color-white;
+  transition: 0.25s;
+  transition-timing-function: ease-in-out;
+}
+
+@media(max-width: 1000px) {
+
+  .left-div,
+  .form-area {
+    width: 50%;
+  }
+}
+
+@media(max-width: 600px) {
+
+  .left-div {
+    display: none;
+  }
+
+  .form-area {
+    width: 100vw;
+  }
+}

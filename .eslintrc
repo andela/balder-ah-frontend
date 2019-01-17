@@ -7,5 +7,16 @@
   "env": {
     "jest": true,
     "browser": true
+  },
+  "rules": {
+    "require-jsdoc": [0, {
+      "require": {
+          "FunctionDeclaration": true,
+          "MethodDefinition": false,
+          "ClassDeclaration": false,
+          "ArrowFunctionExpression": false,
+          "FunctionExpression": false
+      }
+    }]
   }
 }
