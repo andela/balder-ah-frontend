@@ -1,0 +1,44 @@
+@import "../../assets/sass/partials/colors";
+
+.img-modal {
+  background: $transparent-dark-background;
+  height: 100%;
+  left: 0;
+  padding-bottom: 100px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+.modal-main {
+  background: $color-white;
+  border-radius: 10px;
+  height: auto;
+  left: 50%;
+  padding: 20px;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+}
+
+.modal-img-container {
+  height: 500px;
+  position: relative;
+  width: 80%;
+
+  img {
+    height: auto;
+    width: 100%;
+  }
+}
+
+.display-block {
+  display: block;
+}
+
+.display-none {
+  display: none;
+}

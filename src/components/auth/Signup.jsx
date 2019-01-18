@@ -109,7 +109,7 @@ class Signup extends Component {
                     type="password"
                     id="password"
                     name="password"
-                    placeholder="*********"
+                    placeholder="Password should be alphanumeric e.g. abc123"
                     onChange={this.onChange}
                     value={password}
                     onKeyUp={this.comparePassword}
@@ -124,7 +124,7 @@ class Signup extends Component {
                     type="password"
                     id="confirmPassword"
                     name="confirmPassword"
-                    placeholder="*********"
+                    placeholder="Password should be alphanumeric e.g. abc123"
                     onChange={this.onChange}
                     value={confirmPassword}
                     onKeyUp={this.comparePassword}

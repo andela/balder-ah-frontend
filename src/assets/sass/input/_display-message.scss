@@ -1,0 +1,20 @@
+@import "../partials/colors";
+
+.message-box,
+.error-box {
+  box-shadow: 0 2px 2px 0 $msg-box-shadow;
+  height: auto;
+  margin-bottom: 5px;
+  padding: 10px;
+}
+
+.message-box {
+  background: $msg-box-background;
+  color: $msg-box-text;
+}
+
+.error-box,
+.error {
+  background: $error-background;
+  color: $error-color;
+}

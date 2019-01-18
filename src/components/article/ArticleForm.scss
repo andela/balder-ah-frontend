@@ -1,0 +1,44 @@
+$input-border-colour: #9e9e9e;
+
+.article-form {
+  line-height: 50px;
+  padding: 10px 0 20px;
+}
+
+.submit {
+  align-items: center;
+  display: flex;
+  margin-top: 20px;
+}
+
+.title {
+  font-size: 35px;
+}
+
+.textarea {
+  border: 0;
+  font-size: 20px;
+  min-height: 500px;
+  outline: none;
+  overflow-y: scroll;
+  resize: none;
+}
+
+.display-block {
+  display: block;
+}
+
+.inputfile {
+  border-bottom: 1px solid $input-border-colour;
+  outline: none;
+  width: 100%;
+}
+
+.display-none {
+  display: none;
+}
+
+.article-loading {
+  height: 30px;
+  width: 30px;
+}

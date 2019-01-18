@@ -48,20 +48,70 @@ h6 {
   background: transparent;
   border: 1px solid $color-danger;
   border-radius: 60px;
+  box-shadow: none;
   color: $color-danger;
   cursor: pointer;
   display: inline-block;
   font-size: 16px;
+  height: auto;
   outline: transparent;
-  padding: 15px 30px;
   transition: all 0.3s;
 
-  &:hover {
+  &:hover,
+  &:focus {
     background: $color-danger;
+    box-shadow: none;
     color: $color-white;
   }
 }
+
 .btn-lg {
   display: block;
-  width:100%;
+  width: 100%;
+}
+
+nav {
+  background-color: $nav-color;
+}
+
+.page-footer {
+  background-color: $default-gray;
+  color: $footer-text-color;
+  display: flex;
+  flex-direction: row;
+  margin-top: 30px;
+  padding: 20px 0;
+  vertical-align: middle;
+
+  a {
+    color: $footer-text-color;
+    padding: 10px;
+  }
+
+  .copyright {
+    float: left;
+    padding: 5px 0;
+  }
+
+  .footer-links {
+    float: right;
+    padding: 5px 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .page-footer {
+    bottom: 0;
+    text-align: center;
+
+    .copyright {
+      float: none;
+      padding: 5px 0;
+    }
+
+    .footer-links {
+      float: none;
+      padding: 5px 0;
+    }
+  }
 }

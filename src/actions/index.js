@@ -2,8 +2,7 @@ import axios from '../utils/axiosInstance';
 import { LOG_IN } from './types';
 import authUtils from '../utils/auth';
 
-// eslint-disable-next-line import/prefer-default-export
-export const login = formData => async (dispatch) => {
+const login = formData => async (dispatch) => {
   try {
     const { data } = await axios.post('/users/login', formData);
     authUtils.saveUserToken(data.token);
@@ -18,3 +17,5 @@ export const login = formData => async (dispatch) => {
     return message;
   }
 };
+
+export default login;

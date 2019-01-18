@@ -6,3 +6,6 @@ fail_on_violations: true
 
 markdown:
   enabled: true
+
+scss:
+  enabled: false

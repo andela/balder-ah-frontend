@@ -1,0 +1,20 @@
+@import "../../assets/sass/partials/colors";
+
+.navbar {
+  background-color: $color-white;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 30px;
+}
+
+.navbar .brand {
+  color: $color-danger;
+}
+
+.nav a {
+  color: $color-danger;
+}
+
+.nav .icon.material-icons {
+  color: $color-danger;
+}

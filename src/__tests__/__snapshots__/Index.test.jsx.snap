@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Index /> should render correctly 1`] = `
+<div>
+  <div
+    class="App"
+  >
+    <nav
+      class="nav"
+    >
+      <div
+        class="navbar"
+      >
+        <div
+          class="brand"
+        >
+          <a
+            href="/"
+          >
+            Authors Haven
+          </a>
+        </div>
+        <div
+          class="nav-links"
+        >
+          <ul
+            class=""
+            id="nav-mobile"
+          >
+            <li>
+              <a
+                href="/create-article"
+              >
+                Create article
+              </a>
+            </li>
+            <li>
+              <i
+                class="small icon material-icons"
+              >
+                search
+              </i>
+            </li>
+            <li>
+              <i
+                class="small icon material-icons"
+              >
+                menu
+              </i>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <header
+      class="App-header"
+    >
+      <p>
+        Welcome to Author's Haven by Team Balder!
+      </p>
+    </header>
+  </div>
+</div>
+`;
