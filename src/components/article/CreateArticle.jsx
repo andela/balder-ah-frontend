@@ -2,8 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import NavBar from '../presentation/NavBar';
-import Footer from '../presentation/Footer';
 import ArticleForm from './ArticleForm';
 import DisplayMessage from '../presentation/DisplayMessage';
 import { createNewArticle } from '../../actions/articles';
@@ -53,7 +51,6 @@ class CreateArticle extends React.Component {
     const { message } = this.state;
     return (
       <div>
-        <NavBar />
         <div className="container">
           <div className="form-header">
             <h2>
@@ -66,7 +63,6 @@ class CreateArticle extends React.Component {
           />
           <ArticleForm handleSubmit={this.onSubmit} btnValue="create Article" actionType="create" />
         </div>
-        <Footer />
       </div>
     );
   }

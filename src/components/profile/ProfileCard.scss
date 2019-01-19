@@ -1,0 +1,42 @@
+@import "../../assets/sass/base";
+
+.profile-card {
+  align-items: center;
+  display: flex;
+  margin: 15px auto;
+  max-width: 550px;
+  min-height: 250px;
+}
+
+.profile-image {
+  height: 120px;
+  width: 120px;
+}
+
+.profile-card__left {
+  align-items: center;
+  display: flex;
+  height: 250px;
+  justify-content: center;
+  width: 150px;
+}
+
+.profile-card__right {
+  padding: 10px 20px;
+}
+
+@media only screen and (max-width: 480px) {
+  .profile-card {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    margin-top: 40px;
+  }
+
+  .profile-card__left {
+    height: auto;
+  }
+
+  .profile-card__right {
+    text-align: center;
+  }
+}
