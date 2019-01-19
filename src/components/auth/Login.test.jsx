@@ -1,6 +1,7 @@
 import React from 'react';
 import { createStore, applyMiddleware } from 'redux';
 import { render, fireEvent, wait } from 'react-testing-library';
+import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import 'react-testing-library/cleanup-after-each';
 import 'jest-dom/extend-expect';
@@ -35,8 +36,9 @@ describe('LoginForm', () => {
   let LoginComponent;
 
   beforeEach(() => {
-    const ui = <Login history={history} />;
+    const ui = <MemoryRouter><Login history={history} /></MemoryRouter>;
     LoginComponent = renderWithRedux(ui, store);
+
     emailField = LoginComponent.getByLabelText('Email');
     passwordField = LoginComponent.getByLabelText('Password');
     submitButton = LoginComponent.container.querySelector('button[type=submit]');

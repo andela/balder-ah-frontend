@@ -2,6 +2,7 @@ import React from 'react';
 import { createStore, applyMiddleware } from 'redux';
 import { render, fireEvent, wait } from 'react-testing-library';
 import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router-dom';
 import 'react-testing-library/cleanup-after-each';
 import 'jest-dom/extend-expect';
 import MockAdapter from 'axios-mock-adapter';
@@ -38,7 +39,8 @@ describe('SignupForm', () => {
   let SignupComponent;
 
   beforeEach(() => {
-    SignupComponent = renderWithRedux(<Signup />, store);
+    const ui = <MemoryRouter><Signup /></MemoryRouter>;
+    SignupComponent = renderWithRedux(ui, store);
     usernameField = SignupComponent.getByLabelText('Username');
     emailField = SignupComponent.getByLabelText('Email');
     passwordField = SignupComponent.getByLabelText('Password');

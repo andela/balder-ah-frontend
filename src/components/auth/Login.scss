@@ -39,8 +39,61 @@
       padding: 14px;
       width: 100%;
     }
+    
+    .login-btn{
+      height: 50px;
+    }
   }
 }
+
+.social-media-login {
+  display: flex;
+  flex-direction: column;
+}
+
+.icon-container { 
+  display: flex;
+  padding: 0 10px;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.alt-auth {
+  text-align: center;
+  margin: auto;
+  padding: 20px 0;
+}
+
+.icon-link{
+  padding: 10px 20px;
+  background-color: $twitter-blue;
+  border-radius: 5px;
+  color: $color-white;
+  text-decoration: none;
+}
+
+a.icon-link {
+  float: left;
+}
+
+.fab{
+  padding: 0 4px;
+}
+
+.signup-alt{
+  color: $color-danger;
+  padding: 30px 0;
+  text-align: center;
+}
+
+.facebook-icon{
+  background-color: $facebook-blue;
+}
+
+.google-icon{
+  background-color: $color-danger;
+}
+
 .input-checkbox {
   label {
     align-items: center;
@@ -50,6 +103,7 @@
   input {
     position: relative;
   }
+  
 }
 
 .input-group-flex {
@@ -72,4 +126,17 @@
   .login-img {
     display: none;
   }
+
+  .valign-wrapper{
+    display: none;
+  }
+
+  .icon-container{
+    justify-content: space-between;
+  }
+
+  .icon-link{
+    padding: 5px;
+  }
+
 }

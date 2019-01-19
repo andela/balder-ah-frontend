@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './Login.scss';
 import Input from '../presentation/Input';
 import login from '../../actions';
 import Checkbox from '../presentation/Checkbox';
+import SocialAuthButton from './SocialAuthButton';
 
 class Login extends Component {
   state = {
@@ -62,9 +64,16 @@ class Login extends Component {
               <span className="link">Forgot password?</span>
             </div>
             <div className="input-group">
-              <button type="submit" className="btn btn-lg">
+              <button type="submit" className="btn btn-lg login-btn">
                 Login
               </button>
+            </div>
+            <div className="social-media-container">
+              <SocialAuthButton />
+            </div>
+            <div className="signup-alt">
+              { 'Don\'t have an account?' }
+              <Link to="/signup"> Signup </Link>
             </div>
           </form>
         </section>

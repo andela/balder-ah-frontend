@@ -14,3 +14,4 @@ export const LIKE = 'LIKE';
 export const UNLIKE = 'UNLIKE';
 export const LIKE_ERROR = 'LIKE_ERROR';
 export const GET_ARTICLE = 'GET_ARTICLE';
+export const SOCIAL_AUTH = 'SOCIAL_AUTH';

@@ -2,8 +2,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import createUser from '../../actions/signup';
 import DisplayMessage from '../presentation/DisplayMessage';
+import SocialAuthButton from './SocialAuthButton';
 import './Signup.scss';
 
 class Signup extends Component {
@@ -135,6 +137,13 @@ class Signup extends Component {
               <div className="form-field">
                 <button disabled={this.comparePassword && message} className="signupBtn" type="submit">Sign up</button>
               </div>
+            </div>
+            <div className="social-media-container">
+              <SocialAuthButton />
+            </div>
+            <div className="signup-alt">
+              { 'Already have an account?' }
+              <Link to="/login"> Login </Link>
             </div>
           </form>
 
