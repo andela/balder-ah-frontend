@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Nav /> should render correctly 1`] = `
+<div>
+  <nav>
+    <div
+      class="nav-wrapper container"
+    >
+      <a
+        class="brand-logo"
+        href="/"
+      >
+        AH Balder
+      </a>
+      <ul
+        class="right hide-on-med-and-down"
+        id="nav-mobile"
+      >
+        <li>
+          <a
+            href="/login"
+          >
+            Login
+          </a>
+        </li>
+        <li>
+          <a
+            href="/singup"
+          >
+            Sign Up
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
+`;

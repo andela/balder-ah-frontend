@@ -55,7 +55,7 @@ class Signup extends Component {
       message, username, email, password, confirmPassword,
     } = this.state;
     return (
-      <div className="row">
+      <div className="signup-row">
         <div className="left-div" />
 
         <div className="form-area">

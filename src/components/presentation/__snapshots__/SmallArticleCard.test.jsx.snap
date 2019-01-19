@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SmallArticleCard /> should render correctly 1`] = `
+<div>
+  <div
+    class="col s12 m6"
+  >
+    <div
+      class="card horizontal hoverable"
+    >
+      <div
+        class="card-image"
+      >
+        <img
+          alt="smith"
+          src="https://lorempixel.com/100/190/nature/6"
+        />
+      </div>
+      <div
+        class="card-stacked"
+      >
+        <div
+          class="card-content"
+        >
+          <p>
+            I am a very simple card. I am good at containing small bits of information.
+          </p>
+        </div>
+        <div
+          class="card-action"
+        >
+          <a
+            href="#!"
+          >
+            Read Now
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

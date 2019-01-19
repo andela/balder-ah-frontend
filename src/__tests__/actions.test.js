@@ -1,5 +1,6 @@
 import MockAdapter from 'axios-mock-adapter';
 import { login } from '../actions';
+import { getProfile, updateProfile } from '../actions/profile';
 import createUser from '../actions/signup';
 import axios from '../utils/axiosInstance';
 import {
@@ -58,6 +59,63 @@ describe('Redux actions', () => {
       expect(dispatch).toHaveBeenCalledWith({
         type: ERROR_SIGNUP_MESSAGE, payload: payload.errors.body,
       });
+    });
+  });
+
+  describe('getProfile', () => {
+    const tokenSpy = jest.spyOn(authUtils, 'getUserToken').mockImplementation(() => undefined);
+    const payload = { currentUser: { name: 'kay' } };
+
+    test('should call dispatch with correct type', async () => {
+      await axiosMock.onGet().replyOnce(200, payload);
+      await getProfile()(dispatch);
+      expect(tokenSpy).toHaveBeenCalled();
+      expect(dispatch).toHaveBeenCalledWith({
+        type: 'GET_USER_PROFILE',
+        payload: { user: payload.currentUser },
+      });
+    });
+
+    test('should call dispatch on failure', async () => {
+      await axiosMock.onGet().replyOnce(500, {});
+      await getProfile()(dispatch);
+      expect(tokenSpy).toHaveBeenCalled();
+      expect(dispatch).toHaveBeenCalledWith({
+        type: 'GET_USER_PROFILE_FAIL',
+        payload: {
+          message: undefined,
+        },
+      });
+    });
+  });
+
+  describe('updateProfile', () => {
+    const tokenSpy = jest.spyOn(authUtils, 'getUserToken').mockImplementation(() => undefined);
+    const payload = { message: 'profile updated successfully', status: 'Success' };
+    const userData = {
+      username: 'kay',
+      bio: 'kaying',
+      image: 'kaying.png',
+      email: 'ka@yi.ng',
+    };
+
+    test('should call dispatch with correct type and payload', async () => {
+      axiosMock.onPut().replyOnce(200, payload);
+      await updateProfile(userData)(dispatch);
+
+      expect(tokenSpy).toHaveBeenCalled();
+      expect(dispatch).toHaveBeenCalledWith({
+        type: 'UPDATE_USER_PROFILE',
+        payload: { message: payload.message, user: userData },
+      });
+    });
+
+    test('should call dispatch on profile update failure', async () => {
+      axiosMock.onPut().replyOnce(500, {});
+      await updateProfile()(dispatch);
+
+      expect(tokenSpy).toHaveBeenCalled();
+      expect(dispatch).toHaveBeenCalled();
     });
   });
 });

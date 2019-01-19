@@ -1,0 +1,57 @@
+@import "../../assets/sass/partials/colors";
+
+.ReactModalPortal > div {
+  background-color: $color-transparent-black !important;
+  opacity: 0;
+}
+
+.ReactModalPortal .ReactModal__Overlay {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  transition: opacity 250ms ease-in-out;
+}
+
+.ReactModal__Body--open {
+  height: 100%;
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
+
+.ReactModalPortal .ReactModal__Overlay--after-open {
+  opacity: 1;
+}
+
+.ReactModalPortal .ReactModal__Overlay--before-close {
+  opacity: 0;
+}
+
+.edit-profile-modal {
+  background-color: $color-white;
+  border-radius: 6px;
+  max-width: 80vw;
+  outline: none;
+  padding: 25px 7px;
+  word-break: break-all;
+}
+
+.modal-overlay {
+  align-items: center;
+  background: $color-transparent-white;
+  display: flex;
+  justify-content: center;
+
+  .not-uploading {
+    display: none;
+  }
+
+  .is-uploading {
+    display: flex;
+  }
+}
+
+
+textarea.profile-bio__edit {
+  min-height: 80px;
+}

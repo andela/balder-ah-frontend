@@ -1,0 +1,12 @@
+@import "../../assets/sass/base";
+
+.profile {
+  margin: 15px auto;
+  max-width: 1280px;
+}
+
+.user-favorites,
+.user-bookmarks {
+  display: flex;
+  flex-wrap: wrap;
+}

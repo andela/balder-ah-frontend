@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<BigArticleCard /> should render correctly 1`] = `
+<div>
+  <div
+    class="col s12 m4"
+  >
+    <div
+      class="card hoverable"
+    >
+      <div
+        class="card-image"
+      >
+        <img
+          alt="smith"
+          src="https://i.imgur.com/cKxsTfo.jpg"
+        />
+        <span
+          class="card-title"
+        >
+          Card Title
+        </span>
+      </div>
+      <div
+        class="card-content"
+      >
+        <p>
+          Brief text
+        </p>
+      </div>
+      <div
+        class="card-action"
+      >
+        <a
+          href="#!"
+        >
+          Continue Reading
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;

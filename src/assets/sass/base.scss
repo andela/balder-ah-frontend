@@ -48,20 +48,32 @@ h6 {
   background: transparent;
   border: 1px solid $color-danger;
   border-radius: 60px;
+  box-shadow: none;
   color: $color-danger;
   cursor: pointer;
   display: inline-block;
   font-size: 16px;
   outline: transparent;
-  padding: 15px 30px;
   transition: all 0.3s;
 
-  &:hover {
+  &:hover,
+  &:focus {
     background: $color-danger;
+    box-shadow: none;
     color: $color-white;
   }
 }
+
 .btn-lg {
   display: block;
-  width:100%;
+  width: 100%;
+}
+
+.page-footer {
+  background-color: $color-dark-ash;
+  padding-top: 0;
+}
+
+nav {
+  background-color: $color-dark-ash;
 }
