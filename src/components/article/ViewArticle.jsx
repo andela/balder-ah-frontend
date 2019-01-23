@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { getArticle } from '../../actions/articles';
 import DisplayMessage from '../presentation/DisplayMessage';
 import CommentForm from '../comment/CommentForm';
+import ArticleRating from '../presentation/RateArticles';
 import './ViewArticle.scss';
 import Like from '../presentation/likeButton/Like';
 import { like, unlike } from '../../actions/reactions/like';
@@ -22,8 +23,15 @@ class ViewArticle extends React.Component {
       getArticle: viewArticle,
     } = this.props;
     await viewArticle(params.slug);
+    const { message, history } = this.props;
+
     this.setState({ loading: false });
-  };
+    if (typeof message !== 'string') {
+      setTimeout(() => {
+        history.push('/');
+      }, 3000);
+    }
+  }
 
   handleFavoriteClick = () => {
     const { like: likeArticle, unlike: unlikeArticle, isLike } = this.props;
@@ -48,6 +56,7 @@ class ViewArticle extends React.Component {
       match: {
         params: { slug },
       },
+      articleRatingStar,
     } = this.props;
     const {
       title, body, imgUrl, readtime, createdAt,
@@ -67,18 +76,24 @@ class ViewArticle extends React.Component {
         </div>
 
         <div className="article-container container">
-          {loading ? (
-            <div className={loading === '' ? 'center display-none' : 'center display-block'}>
-              {loading && <PreLoader />}
+
+          <div className={loading === '' ? 'center display-none' : 'center display-block'}>
+            {loading && <PreLoader />}
+          </div>
+          <Fragment>
+            <DisplayMessage
+              message={message}
+            />
+            <div className={typeof message !== 'string' ? 'center display-block' : 'center display-none'}>
+              <h2>{message.toString()}</h2>
+              <p>redirecting back to homepage...</p>
             </div>
-          ) : (
-            <Fragment>
-              <DisplayMessage message={message} />
+            <div className={typeof message === 'string' ? 'display-block' : 'display-none'}>
               <div className="top-details">
                 <h1 className="title">{title}</h1>
                 <p className="article-date-author">
                   {date}
-                  &nbsp;by &nbsp;
+                &nbsp;by &nbsp;
                   {username}
                 </p>
 
@@ -87,9 +102,11 @@ class ViewArticle extends React.Component {
                   <p>
                     &nbsp;
                     {readtime}
-                    &nbsp; read
+                    &nbsp;
+                    read
                   </p>
                 </div>
+
                 <div className="article-rate" />
               </div>
 
@@ -99,20 +116,30 @@ class ViewArticle extends React.Component {
 
               <div className="tag-container">
                 <p>
-                  <b>TAGS:&nbsp;</b>
+                  <b>
+                    TAGS:&nbsp;
+                  </b>
                   {tags ? tags.map(tag => `${tag}, `) : ''}
                 </p>
               </div>
 
               <div className="icon-container">
-                <Like
-                  handleClick={this.handleFavoriteClick}
-                  likeButtonStyle={this.likeButtonStyle}
-                  article={this.props}
-                  isLike={isLike}
-                />
+                <div className="reaction1">
+                  <Like
+                    handleClick={this.handleFavoriteClick}
+                    likeButtonStyle={this.likeButtonStyle}
+                    article={this.props}
+                    isLike={isLike}
+                  />
+                </div>
+                <div className="reaction2">
+                  Rate this article: &nbsp;
+                  <ArticleRating
+                    articleRatingStar={Number(articleRatingStar)}
+                    slug={slug}
+                  />
+                </div>
               </div>
-
               <hr />
               <div className="article-comments">
                 {isLoggedIn ? (
@@ -126,8 +153,8 @@ class ViewArticle extends React.Component {
                 )}
                 <CommentList articleSlug={slug} />
               </div>
-            </Fragment>
-          )}
+            </div>
+          </Fragment>
         </div>
       </div>
     );
@@ -145,9 +172,8 @@ ViewArticle.defaultProps = {
 ViewArticle.propTypes = {
   getArticle: PropTypes.func,
   tags: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-  message: PropTypes.string.isRequired,
-  article: PropTypes.oneOfType([
-    PropTypes.number,
+  message: PropTypes.oneOfType([PropTypes.string, PropTypes.array]).isRequired,
+  article: PropTypes.oneOfType([PropTypes.number,
     PropTypes.string,
     PropTypes.array,
     PropTypes.object,
@@ -158,6 +184,7 @@ ViewArticle.propTypes = {
   like: PropTypes.func.isRequired,
   unlike: PropTypes.func.isRequired,
   isLike: PropTypes.bool.isRequired,
+  articleRatingStar: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
 
 const mapStateToProps = ({ auth, article }) => ({
@@ -167,6 +194,9 @@ const mapStateToProps = ({ auth, article }) => ({
   author: article && article.response.getOneArticle ? article.response.getOneArticle.author : '',
   tags: article && article.response.getOneArticle ? article.response.getOneArticle.tags : '',
   isLike: article && article.response.getOneArticle ? article.isLike : false,
+  articleRatingStar: article && article.response.getOneArticle ? article
+    .response.getOneArticle.articleRatingStar : 0,
+  slug: article && article.response.getOneArticle ? article.response.getOneArticle.slug : '',
 });
 
 export default connect(

@@ -105,13 +105,13 @@ describe('Redux actions', () => {
     });
 
     test('call dispatch with correct type', async () => {
-      const payload = { errors: { body: ['fake error'] } };
-      axiosMock.onGet().replyOnce(500, payload);
+      const payload = { response: { data: { message: 'fake error' } } };
+      await axiosMock.onGet().replyOnce(500, payload);
       await getArticle()(dispatch);
       expect(dispatch).toHaveBeenCalledTimes(1);
       expect(dispatch).toHaveBeenCalledWith({
         type: VIEW_ARTICLE_ERROR,
-        payload: payload.errors.body,
+        payload: [payload.response.message],
       });
     });
   });

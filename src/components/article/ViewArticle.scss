@@ -65,6 +65,25 @@
   display: flex;
 }
 
+.icon-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 50px;
+
+    .reaction2, .reaction1 {
+      display: flex;
+      flex: 1;
+    }
+
+    .reaction1 {
+      justify-content: flex-start;
+    }
+
+    .reaction2 {
+      justify-content: flex-end;
+    }
+}
+
 @media screen and (max-width: 768px) {
   .article-container {
     margin-top: -20vh;
@@ -73,6 +92,24 @@
     .article-comments {
       margin: 50px auto;
       width: 100%;
+    }
+  }
+}
+
+@media (max-width: 530px) {
+  .icon-container {
+    .reaction2 {
+      flex: 2
+    }
+  }
+}
+
+@media (max-width: 420px) {
+  .icon-container {
+    flex-direction: column;
+
+    .reaction2, .reaction1 {
+      justify-content: center;
     }
   }
 }
