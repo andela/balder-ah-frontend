@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../assets/sass/input/_display-message.scss';
 
 const DisplayMessage = props => props.message && (
   <div>

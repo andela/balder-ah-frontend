@@ -17,6 +17,11 @@
           "ArrowFunctionExpression": false,
           "FunctionExpression": false
       }
+    }],
+    "jsx-a11y/anchor-is-valid": [ "error", {
+      "components": [ "Link" ],
+      "specialLink": [ "to" ]
     }]
-  }
+  },
+  "root": true
 }

@@ -4,7 +4,7 @@ import { Field, reduxForm } from 'redux-form';
 import PropTypes from 'prop-types';
 import './Login.scss';
 import Input from '../presentation/Input';
-import { login } from '../../actions';
+import login from '../../actions';
 import Checkbox from '../presentation/Checkbox';
 
 class Login extends Component {
@@ -31,7 +31,11 @@ class Login extends Component {
       <div className="login">
         <section className="login-form-container">
           <form onSubmit={handleSubmit(this.onLogin)} className="login-form">
-            <h1 className="login-form-title">Welcome back</h1>
+            <div className="form-header">
+              <h2>
+                Welcome back
+              </h2>
+            </div>
             {error && auth && !auth.isLoggedIn && (
               <p className={error ? 'flash flash-danger' : 'none'}>{error}</p>
             )}
