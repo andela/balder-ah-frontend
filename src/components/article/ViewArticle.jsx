@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { getArticle } from '../../actions/articles';
-import NavBar from '../presentation/NavBar';
-import Footer from '../presentation/Footer';
 import DisplayMessage from '../presentation/DisplayMessage';
 import './ViewArticle.scss';
 
@@ -39,7 +37,6 @@ class ViewArticle extends React.Component {
     const date = new Date(createdAt).toDateString();
     return (
       <div>
-        <NavBar />
         <div className="img-container">
           <div>
             <img src={!imgUrl ? process.env.REACT_APP_DEFAULT_ARTICLE_IMAGE : imgUrl} alt={!imgUrl ? 'article' : `${title}`} />
@@ -92,8 +89,6 @@ class ViewArticle extends React.Component {
           <div className="icon-container" />
 
         </div>
-
-        <Footer />
       </div>
     );
   }
