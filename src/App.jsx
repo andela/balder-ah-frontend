@@ -10,6 +10,8 @@ import ViewArticle from './components/article/ViewArticle';
 import AllArticles from './components/article/AllArticles';
 import ProfilePage from './components/profile/Profile';
 import SocialLogin from './components/auth/SocialMediaLogin';
+import PasswordReset from './components/auth/PasswordReset';
+import UpdatePassword from './components/auth/UpdatePassword';
 import NavBar from './components/presentation/NavBar';
 import Footer from './components/presentation/Footer';
 import NotFoundPage from './components/404/NotFoundPage';
@@ -36,6 +38,8 @@ class App extends Component {
             <Route path="/profile" component={ProfilePage} />
             <Route path="/social" component={SocialLogin} />
             <Route path="/search" component={SearchResult} />
+            <Route path="/reset-password" component={PasswordReset} />
+            <Route path="/update-password" component={UpdatePassword} />
             <Route component={NotFoundPage} />
           </Switch>
           <Footer />
