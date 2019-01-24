@@ -9,6 +9,7 @@
     "browser": true
   },
   "rules": {
+    "react/button-has-type": 0,
     "require-jsdoc": [0, {
       "require": {
           "FunctionDeclaration": true,

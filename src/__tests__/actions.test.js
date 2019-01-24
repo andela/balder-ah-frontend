@@ -1,11 +1,9 @@
 import MockAdapter from 'axios-mock-adapter';
-import login from '../actions';
-import { createNewArticle, getArticle } from '../actions/articles';
+import { createNewArticle, getArticle, commentOnArticle } from '../actions/articles';
 import createUser from '../actions/signup';
 import axios from '../utils/axiosInstance';
 import { getProfile, updateProfile } from '../actions/profile';
 import {
-  LOG_IN,
   ERROR_SIGNUP_MESSAGE,
   SIGN_UP,
   SUCCESS_SIGNUP_MESSAGE,
@@ -13,7 +11,11 @@ import {
   ERROR_CREATE_ARTICLE,
   VIEW_ARTICLE,
   VIEW_ARTICLE_ERROR,
+  COMMENT_ON_ARTICLE,
+  AUTHENTICATE_USER,
 } from '../actions/types';
+import { login, getLoggedInUser } from '../actions/auth';
+
 import authUtils from '../utils/auth';
 
 const axiosMock = new MockAdapter(axios, { delayResponse: 500 });
@@ -25,44 +27,49 @@ describe('Redux actions', () => {
     axiosMock.reset();
   });
 
-  afterAll(authUtils.removeUserToken);
+  afterAll(() => {
+    authUtils.removeUserToken();
+    axiosMock.restore();
+  });
 
   describe('login', () => {
     test('call dispatch with correct type', async () => {
       const payload = { message: 'welcome', token: 'poop' };
-      await axiosMock.onPost().replyOnce(200, payload);
+      axiosMock.onPost().replyOnce(200, payload);
       await login()(dispatch);
-      expect(dispatch).toHaveBeenCalledTimes(1);
-      expect(dispatch).toHaveBeenCalledWith({ type: LOG_IN, payload });
+      expect(dispatch).toHaveBeenCalledTimes(2);
+      expect(dispatch).toHaveBeenCalledWith({ type: AUTHENTICATE_USER, payload });
     });
 
     test('call dispatch with correct type', async () => {
-      await axiosMock.onPost().replyOnce(500, {});
+      axiosMock.onPost().replyOnce(500, {});
       await login()(dispatch);
       expect(dispatch).toHaveBeenCalledTimes(1);
-      expect(dispatch).toHaveBeenCalledWith({ type: LOG_IN });
+      expect(dispatch).toHaveBeenCalledWith({ type: AUTHENTICATE_USER });
     });
   });
 
   describe('signup action', () => {
     test('call dispatch with correct type', async () => {
       const payload = { message: 'welcome to Authors Haven', token: 'newToken' };
-      await axiosMock.onPost().replyOnce(200, payload);
+      axiosMock.onPost().replyOnce(200, payload);
       await createUser()(dispatch);
       expect(dispatch).toHaveBeenCalledTimes(2);
       expect(dispatch).toHaveBeenNthCalledWith(1, { type: SIGN_UP, payload });
       expect(dispatch).toHaveBeenNthCalledWith(2, {
-        type: SUCCESS_SIGNUP_MESSAGE, payload: payload.message,
+        type: SUCCESS_SIGNUP_MESSAGE,
+        payload: payload.message,
       });
     });
 
     test('call dispatch with correct type', async () => {
       const payload = { errors: { body: ['hmmm'] } };
-      await axiosMock.onPost().replyOnce(500, payload);
+      axiosMock.onPost().replyOnce(500, payload);
       await createUser()(dispatch);
       expect(dispatch).toHaveBeenCalledTimes(1);
       expect(dispatch).toHaveBeenCalledWith({
-        type: ERROR_SIGNUP_MESSAGE, payload: payload.errors.body,
+        type: ERROR_SIGNUP_MESSAGE,
+        payload: payload.errors.body,
       });
     });
   });
@@ -70,7 +77,7 @@ describe('Redux actions', () => {
   describe('Create Article', () => {
     test('call dispatch with correct type', async () => {
       const payload = { status: 'Success', message: 'Article created successfully' };
-      await axiosMock.onPost().replyOnce(200, payload);
+      axiosMock.onPost().replyOnce(200, payload);
       await createNewArticle()(dispatch);
       expect(dispatch).toHaveBeenCalledTimes(1);
       expect(dispatch).toHaveBeenCalledWith({ type: CREATE_ARTICLE, payload });
@@ -78,7 +85,7 @@ describe('Redux actions', () => {
 
     test('call dispatch with correct type', async () => {
       const payload = { errors: { body: ['fake error'] } };
-      await axiosMock.onPost().replyOnce(500, payload);
+      axiosMock.onPost().replyOnce(500, payload);
       await createNewArticle()(dispatch);
       expect(dispatch).toHaveBeenCalledTimes(1);
       expect(dispatch).toHaveBeenCalledWith({
@@ -91,7 +98,7 @@ describe('Redux actions', () => {
   describe('View Article', () => {
     test('call dispatch with correct type', async () => {
       const payload = { status: 'Success', message: 'Article found successfully"' };
-      await axiosMock.onGet().replyOnce(200, payload);
+      axiosMock.onGet().replyOnce(200, payload);
       await getArticle()(dispatch);
       expect(dispatch).toHaveBeenCalledTimes(1);
       expect(dispatch).toHaveBeenCalledWith({ type: VIEW_ARTICLE, payload });
@@ -99,7 +106,7 @@ describe('Redux actions', () => {
 
     test('call dispatch with correct type', async () => {
       const payload = { errors: { body: ['fake error'] } };
-      await axiosMock.onGet().replyOnce(500, payload);
+      axiosMock.onGet().replyOnce(500, payload);
       await getArticle()(dispatch);
       expect(dispatch).toHaveBeenCalledTimes(1);
       expect(dispatch).toHaveBeenCalledWith({
@@ -163,6 +170,47 @@ describe('Redux actions', () => {
 
       expect(tokenSpy).toHaveBeenCalled();
       expect(dispatch).toHaveBeenCalled();
+    });
+  });
+  describe('commentOnArticle', () => {
+    test('comment successfully on article', async () => {
+      axiosMock.onPost().replyOnce(200);
+      await commentOnArticle()(dispatch);
+      expect(dispatch).toHaveBeenCalledTimes(2);
+      expect(dispatch).toHaveBeenCalledWith({ type: COMMENT_ON_ARTICLE });
+    });
+
+    test('comment successfully on article', async () => {
+      axiosMock.onPost().replyOnce(500);
+      await commentOnArticle()(dispatch);
+      expect(dispatch).toHaveBeenCalledTimes(1);
+      expect(dispatch).toHaveBeenCalledWith({ type: COMMENT_ON_ARTICLE });
+    });
+  });
+
+  describe('getLoggedInUser', () => {
+    test('should get logged user by token', async () => {
+      const payload = {
+        currentUser: {
+          username: 'johndoe',
+        },
+      };
+      axiosMock.onGet().replyOnce(200, payload);
+
+      await getLoggedInUser()(dispatch);
+      expect(dispatch).toHaveBeenCalledTimes(1);
+      expect(dispatch).toHaveBeenCalledWith({
+        type: AUTHENTICATE_USER,
+        payload: { user: payload.currentUser },
+      });
+    });
+
+    test('should fail to get logged in user', async () => {
+      axiosMock.onGet().replyOnce(500);
+
+      await getLoggedInUser()(dispatch);
+      expect(dispatch).toHaveBeenCalledTimes(1);
+      expect(dispatch).toHaveBeenCalledWith({ type: AUTHENTICATE_USER });
     });
   });
 });

@@ -1,16 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Input = ({
-  input, id, label, ...otherProps
-}) => (
-  <div className="input-group">
-    <label htmlFor={id}>
-      {label}
-      <input {...input} id={id} {...otherProps} />
-    </label>
-  </div>
-);
+const Input = (props) => {
+  const {
+    input, id, label, meta: { touched, error }, ...otherProps
+  } = props;
+  const hasError = touched && error;
+  return (
+    <div className="input-group">
+      <label htmlFor={id}>
+        {label}
+        <input {...input} id={id} {...otherProps} />
+        { hasError && <span className="error">{error}</span> }
+      </label>
+    </div>
+  );
+};
 
 Input.defaultProps = {
   placeholder: '',
