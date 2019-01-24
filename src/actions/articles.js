@@ -21,6 +21,8 @@ export const createNewArticle = articleData => async (dispatch) => {
 
 export const getArticle = articleSlug => async (dispatch) => {
   try {
+    const userToken = authUtils.getUserToken();
+    axios.defaults.headers.common.Authorization = userToken;
     const { data } = await axios.get(`/articles/${articleSlug}`);
     dispatch({ type: VIEW_ARTICLE, payload: data });
   } catch ({ response }) {

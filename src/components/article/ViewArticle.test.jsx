@@ -28,6 +28,9 @@ describe('<ViewArticle />', () => {
       },
     },
     author: { username: 'juwon', bio: null, image: null },
+    isLike: false,
+    unlike: jest.fn(),
+    like: jest.fn(),
   };
 
   const store = createStore(reducers, (applyMiddleware(thunk)));

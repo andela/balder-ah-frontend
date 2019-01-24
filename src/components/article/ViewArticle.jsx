@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import { getArticle } from '../../actions/articles';
 import DisplayMessage from '../presentation/DisplayMessage';
 import './ViewArticle.scss';
+import Like from '../presentation/likeButton/Like';
+import { like, unlike } from '../../actions/reactions/like';
 
 class ViewArticle extends React.Component {
   state={
@@ -17,6 +19,16 @@ class ViewArticle extends React.Component {
     this.setState({ loading: '' });
   }
 
+  handleFavoriteClick = () => {
+    const {
+      like: likeArticle, unlike: unlikeArticle, isLike,
+    } = this.props;
+    const { match: { params: { slug } } } = this.props;
+    const articleSlug = slug;
+
+    return isLike ? unlikeArticle(articleSlug) : likeArticle(articleSlug);
+  }
+
   render() {
     const { loading } = this.state;
     const {
@@ -24,6 +36,7 @@ class ViewArticle extends React.Component {
       message,
       article,
       author,
+      isLike,
     } = this.props;
 
     const {
@@ -86,7 +99,14 @@ class ViewArticle extends React.Component {
             </p>
           </div>
 
-          <div className="icon-container" />
+          <div className="icon-container">
+            <Like
+              handleClick={this.handleFavoriteClick}
+              likeButtonStyle={this.likeButtonStyle}
+              article={this.props}
+              isLike={isLike}
+            />
+          </div>
 
         </div>
       </div>
@@ -109,6 +129,10 @@ ViewArticle.propTypes = {
     PropTypes.array,
     PropTypes.object]).isRequired,
   author: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+  match: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
+  like: PropTypes.func.isRequired,
+  unlike: PropTypes.func.isRequired,
+  isLike: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -117,6 +141,7 @@ const mapStateToProps = state => ({
   article: state.article && state.article.response.getOneArticle ? state.article.response.getOneArticle : '',
   author: state.article && state.article.response.getOneArticle ? state.article.response.getOneArticle.author : '',
   tags: state.article && state.article.response.getOneArticle ? state.article.response.getOneArticle.tags : '',
+  isLike: state.article && state.article.response.getOneArticle ? state.article.isLike : false,
 });
 
-export default connect(mapStateToProps, { getArticle })(ViewArticle);
+export default connect(mapStateToProps, { getArticle, like, unlike })(ViewArticle);
