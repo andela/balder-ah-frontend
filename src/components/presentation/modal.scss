@@ -12,7 +12,7 @@
 }
 
 .modal-main {
-  background: $color-white;
+  background: transparent;
   border-radius: 10px;
   height: auto;
   left: 50%;
@@ -24,14 +24,38 @@
   width: 60%;
 }
 
+.modal-btn {
+  background: transparent;
+  border: 1px solid $color-white;
+  border-radius: 60px;
+  box-shadow: none;
+  color: $color-white;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+  height: auto;
+  outline: transparent;
+  padding: 10px;
+  transition: all 0.3s;
+
+  &:hover,
+  &:focus {
+    background: $color-danger;
+    border: 1px solid $color-danger;
+    box-shadow: none;
+    color: $color-white;
+  }
+}
+
 .modal-img-container {
   height: 500px;
   position: relative;
   width: 80%;
 
   img {
-    height: auto;
-    width: 100%;
+    max-height: 400px;
+    width: auto;
+    border-radius: 10px
   }
 }
 

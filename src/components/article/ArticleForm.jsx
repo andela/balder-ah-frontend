@@ -27,6 +27,7 @@ class ArticleForm extends React.Component {
       imgBtnShow: 'display-none',
       loading: 'https://i.imgur.com/ungt2Pg.gif',
       loadingShow: 'article-loading display-none',
+      errorDisplay: '',
     };
 
     this.fileInput = React.createRef();
@@ -42,7 +43,7 @@ class ArticleForm extends React.Component {
     } else if (!file) {
       await this.setState({
         file: null,
-        imgBtnShow: 'display-none',
+        imgBtnShow: 'btn display-none',
       });
     }
   }
@@ -60,8 +61,8 @@ class ArticleForm extends React.Component {
       return this.setState({ imgUrl: '' });
     }
     const uploadResponse = await uploadImage(this.fileInput.current.files[0]);
-    if (!uploadResponse) {
-      return this.setState({ imgUrl: '', message: 'please try again' });
+    if (!uploadResponse || uploadResponse === 'Network Error') {
+      return 'Upload Error';
     }
     return this.setState({ imgUrl: uploadResponse.data.secure_url });
   }
@@ -71,7 +72,13 @@ class ArticleForm extends React.Component {
     const { handleSubmit } = this.props;
     const { tagsInputValue, body } = this.state;
 
-    await this.handleImgUpload();
+    const imgUploadResponse = await this.handleImgUpload();
+    if (imgUploadResponse === 'Upload Error') {
+      return this.setState({
+        loadingShow: 'article-loading display-none',
+        errorDisplay: 'Image upload failed',
+      });
+    }
     await this.setState({ description: body.substr(0, 50) });
 
     const newTagArray = tagsInputValue.split(',').map(tag => tag.trim());
@@ -101,6 +108,7 @@ class ArticleForm extends React.Component {
       imgBtnShow,
       loading,
       loadingShow,
+      errorDisplay,
     } = this.state;
 
     const { btnValue } = this.props;
@@ -149,7 +157,7 @@ class ArticleForm extends React.Component {
           >
             Show Image
           </button>
-
+          <br />
           <label htmlFor="body">
             Body
             <textarea
@@ -182,6 +190,7 @@ class ArticleForm extends React.Component {
               {btnValue}
             </button>
             <img src={loading} alt="loading" className={loadingShow} />
+            <p>{errorDisplay}</p>
           </div>
         </form>
       </div>
