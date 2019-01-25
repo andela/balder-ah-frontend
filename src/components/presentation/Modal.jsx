@@ -7,7 +7,7 @@ const Modal = ({ handleClose, show, children }) => (
   <div className={show ? 'img-modal display-block' : 'img-modal display-none'}>
     <section className="modal-main">
       {children}
-      <button type="button" onClick={handleClose}>close</button>
+      <button type="button" className="modal-btn" onClick={handleClose}>close</button>
     </section>
   </div>
 );
