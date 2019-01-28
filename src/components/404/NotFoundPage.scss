@@ -1,0 +1,12 @@
+.not-found-page {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 80vh;
+  text-align: center;
+}
+
+.not-found-page > h2 {
+  margin-bottom: 45px;
+}
