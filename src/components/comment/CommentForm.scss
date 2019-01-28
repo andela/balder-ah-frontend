@@ -1,0 +1,22 @@
+@import "../../assets/sass/base";
+@import "../../assets/sass/partials/helpers";
+
+.comment-box-form {
+    @include text-align-to(right);
+
+    > * {
+        margin: 10px 0;
+    }
+    
+    .comment-box {
+        border:1px solid darken($color-light-gray, 15%);
+        border-radius: 5px;
+        font-size: 16px;
+        min-height: 100px;
+        outline: transparent;
+        padding: 15px;
+        resize: none;
+        text-align: left;
+
+    }
+}

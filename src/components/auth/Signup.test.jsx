@@ -1,23 +1,16 @@
 import React from 'react';
-import { createStore, applyMiddleware } from 'redux';
-import { render, fireEvent, wait } from 'react-testing-library';
-import { Provider } from 'react-redux';
+import { fireEvent, wait } from 'react-testing-library';
 import { MemoryRouter } from 'react-router-dom';
 import 'react-testing-library/cleanup-after-each';
 import 'jest-dom/extend-expect';
 import MockAdapter from 'axios-mock-adapter';
-import thunk from 'redux-thunk';
-import reducers from '../../reducers';
 import Signup from './Signup';
 import axiosInstance from '../../utils/axiosInstance';
 import auth from '../../utils/auth';
+import { renderWithRedux } from '../../__mocks__/helpers';
 
 const axiosMock = new MockAdapter(axiosInstance, { delayResponse: 500 });
-const store = createStore(reducers, applyMiddleware(thunk));
-const renderWithRedux = (ui, reduxStore) => ({
-  ...render(<Provider store={reduxStore}>{ui}</Provider>),
-  store,
-});
+
 
 const fillSubmitForm = (
   usernameField, emailField, passwordField,
@@ -40,14 +33,15 @@ describe('SignupForm', () => {
 
   beforeEach(() => {
     const ui = <MemoryRouter><Signup /></MemoryRouter>;
-    SignupComponent = renderWithRedux(ui, store);
+    SignupComponent = renderWithRedux(ui, { initialState: { auth: { isLoggedIn: false } } });
     usernameField = SignupComponent.getByLabelText('Username');
     emailField = SignupComponent.getByLabelText('Email');
     passwordField = SignupComponent.getByLabelText('Password');
     confirmPasswordField = SignupComponent.getByLabelText('Confirm Password');
     submitButton = SignupComponent.container.querySelector('button[type=submit]');
   });
-  afterEach(axiosMock.restore);
+  afterEach(axiosMock.reset);
+  afterAll(axiosMock.restore);
 
   test('it renders all form inputs', () => {
     expect(usernameField).toBeInTheDocument();

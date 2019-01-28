@@ -1,13 +1,14 @@
-import { LOG_IN, SOCIAL_AUTH } from '../actions/types';
+import { SOCIAL_AUTH, AUTHENTICATE_USER } from '../actions/types';
 
-export default (state = null, action) => {
-  const { payload, type } = action;
+const initialState = { user: null, isLoggedIn: null };
+export default (state = initialState, action) => {
+  const { type, payload = null } = action;
 
   switch (type) {
-    case LOG_IN:
-      return payload ? { isLoggedIn: true } : { isLogged: false };
     case SOCIAL_AUTH:
       return { isLoggedIn: true };
+    case AUTHENTICATE_USER:
+      return payload ? { ...payload, isLoggedIn: true } : { user: null, isLoggedIn: false };
     default:
       return state;
   }

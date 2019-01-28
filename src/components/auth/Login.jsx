@@ -1,33 +1,47 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { Link } from 'react-router-dom';
+import { Link, Redirect, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './Login.scss';
 import Input from '../presentation/Input';
-import login from '../../actions';
+import { login } from '../../actions/auth';
 import Checkbox from '../presentation/Checkbox';
 import SocialAuthButton from './SocialAuthButton';
+import Button from '../presentation/Button';
+import formValidator from '../../utils/formValidator';
 
+const { _required, _email } = formValidator;
 class Login extends Component {
   state = {
     error: null,
+    redirectToReferrer: false,
   };
 
   onLogin = async (formValues) => {
-    if (!formValues.email && !formValues.password) return null;
-    const { login: dispatchLogin, history } = this.props;
     this.setState({ error: null });
+    const { login: dispatchLogin } = this.props;
+
     const error = await dispatchLogin(formValues);
-    return error ? this.setState({ error }) : history.push('/');
+
+    return error
+      ? this.setState({ error })
+      : this.setState({ redirectToReferrer: true });
   };
 
   render() {
-    const { handleSubmit, auth } = this.props;
-    const { error } = this.state;
+    const {
+      handleSubmit, auth, location, submitting,
+    } = this.props;
+    const { error, redirectToReferrer } = this.state;
 
     const emailInput = 'email';
     const passwordInput = 'password';
+
+    const { from } = location.state || { from: { pathname: '/' } };
+
+    if (auth.isLoggedIn === null) return null;
+    if (redirectToReferrer || auth.isLoggedIn) return <Redirect to={from} />;
 
     return (
       <div className="login">
@@ -39,15 +53,16 @@ class Login extends Component {
               </h2>
             </div>
             {error && auth && !auth.isLoggedIn && (
-              <p className={error ? 'flash flash-danger' : 'none'}>{error}</p>
+              <p className={error && 'flash flash-danger'}>{error}</p>
             )}
             <Field
               name={emailInput}
               type={emailInput}
               id={emailInput}
-              required
               placeholder="you@example.com"
               label="Email"
+              validate={[_required, _email]}
+              className="input"
               component={Input}
             />
             <Field
@@ -55,8 +70,9 @@ class Login extends Component {
               type={passwordInput}
               id={passwordInput}
               placeholder="*********"
-              required
+              validate={[_required]}
               label="Password"
+              className="input"
               component={Input}
             />
             <div className="input-group-flex">
@@ -64,9 +80,7 @@ class Login extends Component {
               <span className="link">Forgot password?</span>
             </div>
             <div className="input-group">
-              <button type="submit" className="btn btn-lg login-btn">
-                Login
-              </button>
+              <Button disabled={submitting} type="submit" className="waves-effect waves-light btn btn-lg" title="Login" />
             </div>
             <div className="social-media-container">
               <SocialAuthButton />
@@ -84,13 +98,17 @@ class Login extends Component {
 }
 
 Login.defaultProps = {
-  handleSubmit: () => {},
+  handleSubmit: null,
   auth: {},
+  location: {},
+  submitting: false,
 };
 
 Login.propTypes = {
   handleSubmit: PropTypes.func,
   auth: PropTypes.oneOfType([PropTypes.any, PropTypes.object]),
+  location: PropTypes.oneOfType([PropTypes.object]),
+  submitting: PropTypes.bool,
 };
 
 const mapStateToProps = state => ({
@@ -100,4 +118,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { login },
-)(reduxForm({ form: 'login' })(Login));
+)(reduxForm({ form: 'login' })(withRouter(Login)));

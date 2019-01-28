@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import createUser from '../../actions/signup';
 import DisplayMessage from '../presentation/DisplayMessage';
 import SocialAuthButton from './SocialAuthButton';
@@ -56,6 +56,10 @@ class Signup extends Component {
     const {
       message, username, email, password, confirmPassword,
     } = this.state;
+
+    const { auth } = this.props;
+    if (auth.isLoggedIn === null) return null;
+    if (auth.isLoggedIn) return <Redirect to="/" />;
     return (
       <div className="signup-row">
         <div className="left-div" />
@@ -153,12 +157,18 @@ class Signup extends Component {
   }
 }
 
+Signup.defaultProps = {
+  auth: null,
+};
+
 Signup.propTypes = {
   createUser: PropTypes.func.isRequired,
+  auth: PropTypes.oneOfType([PropTypes.object]),
 };
 
 const mapStateToProps = state => ({
   message: state.signup.response,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, { createUser })(Signup);

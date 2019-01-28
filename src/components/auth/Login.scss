@@ -1,4 +1,4 @@
-@import "../../assets/sass/partials/colors";
+@import '../../assets/sass/partials/colors';
 
 @mixin vertical-align-to($where) {
   align-items: center;
@@ -19,7 +19,7 @@
 }
 
 .login-img {
-  background: url("../../assets/images/typewriter.jpg") center no-repeat;
+  background: url('../../assets/images/typewriter.jpg') center no-repeat;
   flex: 1.3;
 }
 
@@ -39,8 +39,8 @@
       padding: 14px;
       width: 100%;
     }
-    
-    .login-btn{
+
+    .login-btn {
       height: 50px;
     }
   }
@@ -51,7 +51,7 @@
   flex-direction: column;
 }
 
-.icon-container { 
+.icon-container {
   display: flex;
   padding: 0 10px;
   width: 100%;
@@ -64,7 +64,7 @@
   padding: 20px 0;
 }
 
-.icon-link{
+.icon-link {
   padding: 10px 20px;
   background-color: $twitter-blue;
   border-radius: 5px;
@@ -76,21 +76,21 @@ a.icon-link {
   float: left;
 }
 
-.fab{
+.fab {
   padding: 0 4px;
 }
 
-.signup-alt{
+.signup-alt {
   color: $color-danger;
   padding: 30px 0;
   text-align: center;
 }
 
-.facebook-icon{
+.facebook-icon {
   background-color: $facebook-blue;
 }
 
-.google-icon{
+.google-icon {
   background-color: $color-danger;
 }
 
@@ -103,7 +103,6 @@ a.icon-link {
   input {
     position: relative;
   }
-  
 }
 
 .input-group-flex {
@@ -127,16 +126,15 @@ a.icon-link {
     display: none;
   }
 
-  .valign-wrapper{
+  .valign-wrapper {
     display: none;
   }
 
-  .icon-container{
+  .icon-container {
     justify-content: space-between;
   }
 
-  .icon-link{
+  .icon-link {
     padding: 5px;
   }
-
 }

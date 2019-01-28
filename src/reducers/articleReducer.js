@@ -6,23 +6,27 @@ import {
   LIKE,
   UNLIKE,
   LIKE_ERROR,
+  GET_ARTICLE_COMMENTS,
+  COMMENT_ON_ARTICLE,
 } from '../actions/types';
 
 const initialState = {
   response: '',
+  selectedArticle: { comments: [] },
 };
 
 export default (state = initialState, action) => {
-  switch (action.type) {
+  const { type, payload } = action;
+  switch (type) {
     case CREATE_ARTICLE:
       return {
         ...state,
-        response: action.payload,
+        response: payload,
       };
     case ERROR_CREATE_ARTICLE:
       return {
         ...state,
-        response: { message: action.payload },
+        response: { message: payload },
       };
     case VIEW_ARTICLE:
       return {
@@ -33,7 +37,7 @@ export default (state = initialState, action) => {
     case VIEW_ARTICLE_ERROR:
       return {
         ...state,
-        response: { message: action.payload },
+        response: { message: payload },
       };
     case LIKE:
       return {
@@ -53,6 +57,12 @@ export default (state = initialState, action) => {
         type: action.type,
         likeError: action.error,
       };
+    case GET_ARTICLE_COMMENTS:
+      return payload
+        ? { ...state, selectedArticle: { ...state.selectedArticle, comments: payload } }
+        : { ...state };
+    case COMMENT_ON_ARTICLE:
+      return { ...state };
     default:
       return state;
   }
