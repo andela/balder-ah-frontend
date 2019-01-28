@@ -34,8 +34,8 @@ describe('Article Form', () => {
     body: 'body of the article',
     tags: 'tag1, tag2, tag3',
     btnValue: 'create article',
-    showModal: jest.fn(),
   };
+
   const connectedComponent = <Provider store={store}><ArticleForm {...props} /></Provider>;
 
   test('it renders all form inputs', () => {

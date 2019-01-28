@@ -112,6 +112,36 @@ nav {
   }
 }
 
+.tooltip-text {
+  background-color: $transparent-dark-background;
+  border-radius: 5px;
+  color: $color-white;
+  display: none;
+  font-size: 10px;
+  padding: 0 10px;
+  position: absolute;
+  z-index: 2;
+}
+
+.bookmark-style {
+  color: $like-color-grey;
+  cursor: pointer;
+  font-size: 20px;
+  user-select: none;
+}
+
+.bookmark-style:hover + .tooltip-text{
+  display: inline-block;
+}
+
+.unbookmark-style {
+  color: $color-black;
+  cursor: pointer;
+  font-size: 20px;
+  user-select: none;
+}
+
+
 @media screen and (max-width: 768px) {
   .page-footer {
     bottom: 0;
@@ -132,7 +162,11 @@ nav {
 .like-style-unliked {font-size: 20px; color: $like-color-grey; cursor: pointer;}
 .like-style-liked {font-size: 20px; color: $like-color-red; cursor: pointer;}
 
-.article-share {display: flex; flex-direction: column-reverse; width: 7%;}
+.article-share {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
 .custom-article-share {
   margin: 0 auto;
   cursor:pointer;
@@ -152,10 +186,8 @@ nav {
   animation-duration: 0.7s;
   animation-name: slidein;
   display: flex;
-  padding-bottom: 10px;
-  display: flex;
   position: absolute;
-  margin-top: -25px;
+  margin-top: 20px;
 }
 .article-share ul li {
   margin-right: 5px;

@@ -2,8 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ReadTime from './ReadTime';
+import Bookmark from './Bookmark';
 
-const ArticleCard = ({ article }) => {
+const ArticleCard = ({ article, handleBookmarkClick }) => {
   const defaultImg = process.env.REACT_APP_ARTICLE_CARD_DEFAULT_IMG;
   return (
     <div className="col s12 m6 l6 all-card-content">
@@ -28,19 +29,33 @@ const ArticleCard = ({ article }) => {
           </div>
 
           <div className="article-tags">
-            {article.tags.map((tag, i) => (
-              <Link to="/tags" key={tag[i]}>
+            {article.tags.map(tag => (
+              <Link to="/tags" key={tag.length * Math.random() * 200}>
                 <span className="tags">{tag}</span>
               </Link>
             ))}
           </div>
+
+          <div className="article-bookmark">
+            <Bookmark
+              handleBookmarkClick={handleBookmarkClick}
+              article={article}
+              isBookmarked={article.bookmarked}
+            />
+          </div>
+
         </div>
       </div>
     </div>
   );
 };
 
+ArticleCard.defaultProps = {
+  handleBookmarkClick: null,
+};
+
 ArticleCard.propTypes = {
   article: PropTypes.instanceOf(Object).isRequired,
+  handleBookmarkClick: PropTypes.func,
 };
 export default ArticleCard;

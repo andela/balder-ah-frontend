@@ -1,18 +1,21 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import toastr from 'toastr';
 import { getArticle } from '../../actions/articles';
 import { like, unlike } from '../../actions/reactions/like';
 import DisplayMessage from '../presentation/DisplayMessage';
 import ArticleRating from '../presentation/RateArticles';
 import Like from '../presentation/likeButton/Like';
+import Bookmark from '../presentation/Bookmark';
 import PreLoader from '../presentation/PreLoader';
 import Share from '../presentation/shareButton/Share';
 import ReadTime from '../presentation/ReadTime';
 import CommentForm from '../comment/CommentForm';
 import CommentList from '../comment/CommentList';
 import './ViewArticle.scss';
+import { bookmarkArticle, unbookmarkArticle } from '../../actions/reactions/bookmark';
 
 class ViewArticle extends React.Component {
   state = {
@@ -46,6 +49,22 @@ class ViewArticle extends React.Component {
     return isLike ? unlikeArticle(articleSlug) : likeArticle(articleSlug);
   };
 
+  handleBookmarkClick = () => {
+    const {
+      bookmarkArticle: bookMark,
+      unbookmarkArticle: unbookMark,
+      article,
+      isLoggedIn,
+    } = this.props;
+
+    if (isLoggedIn === false) {
+      return toastr.error('Please login or signup');
+    }
+
+    const { id, bookmarked, slug } = article;
+    return bookmarked ? unbookMark(id) : bookMark(slug);
+  }
+
   render() {
     const { loading } = this.state;
     const {
@@ -61,10 +80,14 @@ class ViewArticle extends React.Component {
       articleRatingStar,
     } = this.props;
     const {
-      title, body, imgUrl, createdAt,
+      title,
+      body,
+      imgUrl,
+      createdAt,
+      bookmarked,
     } = article;
+
     const { username } = author;
-    const date = new Date(createdAt).toDateString();
     const articleSlug = slug;
     return (
       <div>
@@ -78,83 +101,91 @@ class ViewArticle extends React.Component {
         </div>
 
         <div className="article-container container">
-
-          <div className={loading === '' ? 'center display-none' : 'center display-block'}>
-            {loading && <PreLoader />}
-          </div>
-          <Fragment>
-            <DisplayMessage
-              message={message}
-            />
-            <div className={typeof message !== 'string' ? 'center display-block' : 'center display-none'}>
-              <h2>{message.toString()}</h2>
-              <p>redirecting back to homepage...</p>
+          {loading ? (
+            <div className={loading === '' ? 'center display-none' : 'center display-block'}>
+              {loading && <PreLoader />}
             </div>
-            <div className={typeof message === 'string' ? 'display-block' : 'display-none'}>
-              <div className="top-details">
-                <h1 className="title">{title}</h1>
-                <p className="article-date-author">
-                  {date}
-                &nbsp;by &nbsp;
-                  {username}
-                </p>
-
-                <div>
-                  <ReadTime article={article} />
-                </div>
-
-                <div className="article-rate" />
+          ) : (
+            <Fragment>
+              <DisplayMessage
+                message={message}
+              />
+              <div className={typeof message !== 'string' ? 'center display-block' : 'center display-none'}>
+                <h2>{message.toString()}</h2>
+                <p>redirecting back to homepage...</p>
               </div>
-
-              <div className="article-main">
-                <p>{body}</p>
-              </div>
-
-              <div className="tag-container">
-                <p>
-                  <b>
-                    TAGS:&nbsp;
-                  </b>
-                  {tags ? tags.map(tag => `${tag}, `) : ''}
-                </p>
-              </div>
-
-              <div className="icon-container">
-                <div className="reaction1">
-                  <Like
-                    handleClick={this.handleFavoriteClick}
-                    likeButtonStyle={this.likeButtonStyle}
-                    article={this.props}
-                    isLike={isLike}
-                  />
-                  <Share
-                    articleSlug={articleSlug}
-                    articleTitle={title}
-                  />
-                </div>
-                <div className="reaction2">
-                  Rate this article: &nbsp;
-                  <ArticleRating
-                    articleRatingStar={Number(articleRatingStar)}
-                    slug={slug}
-                  />
-                </div>
-              </div>
-              <hr />
-              <div className="article-comments">
-                {isLoggedIn ? (
-                  <CommentForm articleSlug={slug} />
-                ) : (
-                  <p>
-                    {'Please '}
-                    <Link to="/login">log in</Link>
-                    {' to comment'}
+              <div className={typeof message === 'string' ? 'display-block' : 'display-none'}>
+                <div className="top-details">
+                  <h1 className="title">{title}</h1>
+                  <p className="article-date-author">
+                    {` ${new Date(createdAt).toDateString()} by `}
+                    {username}
                   </p>
-                )}
-                <CommentList articleSlug={slug} />
+
+                  <div>
+                    <ReadTime article={article} />
+                  </div>
+
+                  <div className="article-rate" />
+                </div>
+
+                <div className="article-main">
+                  <p>{body}</p>
+                </div>
+
+                <div className="tag-container">
+                  <p>
+                    <b>
+                      {'TAGS: '}
+                    </b>
+                    {tags ? tags.map(tag => `${tag}, `) : ''}
+                  </p>
+                </div>
+
+                <div className="icon-container">
+                  <div className="reaction1">
+                    <Like
+                      handleClick={this.handleFavoriteClick}
+                      likeButtonStyle={this.likeButtonStyle}
+                      article={this.props}
+                      isLike={isLike}
+                    />
+                    <Share
+                      articleSlug={articleSlug}
+                      articleTitle={title}
+                    />
+                    <Bookmark
+                      handleBookmarkClick={this.handleBookmarkClick}
+                      article={article}
+                      isBookmarked={bookmarked}
+                    />
+                  </div>
+                  <div className="reaction2">
+                    {'Rate this article: '}
+                    <ArticleRating
+                      articleRatingStar={Number(articleRatingStar)}
+                      slug={slug}
+                    />
+                  </div>
+                </div>
+
+                <hr />
+
+                <div className="article-comments">
+                  {isLoggedIn ? (
+                    <CommentForm articleSlug={slug} />
+                  ) : (
+                    <p>
+                      {'Please '}
+                      <Link to="/login">log in</Link>
+                      {' to comment'}
+                    </p>
+                  )}
+                  <CommentList articleSlug={slug} />
+                </div>
               </div>
-            </div>
-          </Fragment>
+            </Fragment>
+          )}
         </div>
       </div>
     );
@@ -167,6 +198,7 @@ ViewArticle.defaultProps = {
   author: null,
   match: null,
   isLoggedIn: null,
+  articleRatingStar: null,
 };
 
 ViewArticle.propTypes = {
@@ -184,7 +216,9 @@ ViewArticle.propTypes = {
   like: PropTypes.func.isRequired,
   unlike: PropTypes.func.isRequired,
   isLike: PropTypes.bool.isRequired,
-  articleRatingStar: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  articleRatingStar: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  bookmarkArticle: PropTypes.func.isRequired,
+  unbookmarkArticle: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({ auth, article }) => ({
@@ -201,5 +235,11 @@ const mapStateToProps = ({ auth, article }) => ({
 
 export default connect(
   mapStateToProps,
-  { getArticle, like, unlike },
-)(ViewArticle);
+  {
+    getArticle,
+    like,
+    unlike,
+    bookmarkArticle,
+    unbookmarkArticle,
+  },
+)(withRouter(ViewArticle));
