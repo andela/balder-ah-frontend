@@ -1,0 +1,9 @@
+@import "../../assets/sass/partials/colors";
+
+.rating-response {
+  position: absolute;
+  right: 0;
+  margin-right: 60px;
+  font-size: 12px;
+  color: $color-danger;
+}

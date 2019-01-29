@@ -28,7 +28,7 @@ export const getArticle = articleSlug => async (dispatch) => {
     const { data } = await axios.get(`/articles/${articleSlug}`);
     dispatch({ type: VIEW_ARTICLE, payload: data });
   } catch ({ response }) {
-    const errorMessage = response.data.errors.body;
+    const errorMessage = [response.data.message];
     dispatch({ type: VIEW_ARTICLE_ERROR, payload: errorMessage });
   }
 };

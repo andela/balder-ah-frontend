@@ -21,3 +21,4 @@ export const UNLIKE = 'UNLIKE';
 export const LIKE_ERROR = 'LIKE_ERROR';
 export const GET_ARTICLE = 'GET_ARTICLE';
 export const SOCIAL_AUTH = 'SOCIAL_AUTH';
+export const ARTICLE_RATING_ERROR = 'ARTICLE_RATING_ERROR';
