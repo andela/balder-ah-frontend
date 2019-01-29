@@ -1,0 +1,10 @@
+@import "../../assets/sass/partials/colors";
+
+select.search-select {
+    border: 1px solid $color-danger;
+    color: $color-danger;
+    display: inline-block;
+    outline: none;
+    text-align-last:center; // https://stackoverflow.com/a/34532555
+    width: auto;
+}

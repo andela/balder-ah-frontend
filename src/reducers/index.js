@@ -4,6 +4,7 @@ import authReducer from './auth';
 import signupReducers from './signupReducers';
 import articleReducer from './articleReducer';
 import profileReducer from './profile';
+import searchReducer from './search';
 
 export default combineReducers({
   auth: authReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   signup: signupReducers,
   article: articleReducer,
   profile: profileReducer,
+  search: searchReducer,
 });

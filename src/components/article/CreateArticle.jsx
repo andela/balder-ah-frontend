@@ -74,7 +74,7 @@ CreateArticle.propTypes = {
 };
 
 const mapStateToProps = ({ auth, article }) => ({
-  isLoggedIn: auth && auth.isLoggedIn ? auth.isLoggedIn : null,
+  isLoggedIn: auth.isLoggedIn,
   message: article && article.response.message ? article.response.message : '',
   slug: article && article.response.newArticle ? article.response.newArticle.slug : '',
 });

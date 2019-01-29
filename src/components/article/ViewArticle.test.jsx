@@ -1,6 +1,4 @@
 import React from 'react';
-import { cleanup } from 'react-testing-library';
-import 'jest-dom/extend-expect';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
@@ -10,8 +8,6 @@ import renderWithRouter from '../../__mocks__/helpers';
 import reducers from '../../reducers';
 
 describe('<ViewArticle />', () => {
-  afterEach(cleanup);
-
   const props = {
     getArticle: jest.fn(),
     tags: ['tag1', 'tag2', 'tag3'],

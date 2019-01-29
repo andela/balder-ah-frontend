@@ -22,7 +22,9 @@ import {
   GET_ALL_ARTICLES,
   GET_ALL_ARTICLES_SUCCESS_MSG,
   GET_ALL_ARTICLES_FAILURE_MSG,
+  SEARCH,
 } from '../actions/types';
+import search from '../actions/search';
 
 import authUtils from '../utils/auth';
 
@@ -256,6 +258,38 @@ describe('Redux actions', () => {
       await getLoggedInUser()(dispatch);
       expect(dispatch).toHaveBeenCalledTimes(1);
       expect(dispatch).toHaveBeenCalledWith({ type: AUTHENTICATE_USER });
+    });
+  });
+
+  describe('search', () => {
+    test('should search by article', async () => {
+      const query = 'hello world';
+      const articles = [{ id: 1 }];
+
+      axiosMock.onGet().replyOnce(200, { articles });
+      await search({ query })(dispatch);
+
+      expect(dispatch).toHaveBeenCalledTimes(1);
+      expect(dispatch).toHaveBeenCalledWith({ type: SEARCH, payload: { articles, query } });
+    });
+
+    test('try to search with invalid key', async () => {
+      const query = 'hello world';
+      const articles = [{ id: 1 }];
+
+      axiosMock.onGet().replyOnce(200, { articles });
+      await search({ query, by: 'invalid' })(dispatch);
+
+      expect(dispatch).toHaveBeenCalledTimes(0);
+    });
+
+    test('error while trying to search', async () => {
+      const query = 'hello world';
+      axiosMock.onGet().replyOnce(500);
+      await search({ query })(dispatch);
+
+      expect(dispatch).toHaveBeenCalledTimes(1);
+      expect(dispatch).toHaveBeenCalledWith({ type: SEARCH });
     });
   });
 });
