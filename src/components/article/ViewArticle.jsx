@@ -11,6 +11,7 @@ import Like from '../presentation/likeButton/Like';
 import { like, unlike } from '../../actions/reactions/like';
 import PreLoader from '../presentation/PreLoader';
 import CommentList from '../comment/CommentList';
+import Share from '../presentation/shareButton/Share';
 
 class ViewArticle extends React.Component {
   state = {
@@ -63,7 +64,7 @@ class ViewArticle extends React.Component {
     } = article;
     const { username } = author;
     const date = new Date(createdAt).toDateString();
-
+    const articleSlug = slug;
     return (
       <div>
         <div className="img-container">
@@ -130,6 +131,10 @@ class ViewArticle extends React.Component {
                     likeButtonStyle={this.likeButtonStyle}
                     article={this.props}
                     isLike={isLike}
+                  />
+                  <Share
+                    articleSlug={articleSlug}
+                    articleTitle={title}
                   />
                 </div>
                 <div className="reaction2">

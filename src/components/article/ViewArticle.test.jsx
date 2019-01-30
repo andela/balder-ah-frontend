@@ -31,6 +31,7 @@ describe('<ViewArticle />', () => {
     isLike: false,
     unlike: jest.fn(),
     like: jest.fn(),
+    articleTitle: 'I want them thingy',
   };
 
   const store = createStore(reducers, (applyMiddleware(thunk)));

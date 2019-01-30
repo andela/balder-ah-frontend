@@ -112,14 +112,50 @@ h6 {
   }
 }
 
-.like-style-unliked {
-  font-size: 20px;
-  color: $like-color-grey;
-  cursor: pointer;
+.like-style-unliked {font-size: 20px; color: $like-color-grey; cursor: pointer;}
+.like-style-liked {font-size: 20px; color: $like-color-red; cursor: pointer;}
+
+.article-share {display: flex; flex-direction: column-reverse; width: 7%;}
+.custom-article-share {
+  margin: 0 auto;
+  cursor:pointer;
+  padding-bottom: 10px;
+  color: grey;
+  margin-left: 10px;
+  font-size: 21px;
 }
 
-.like-style-liked {
-  font-size: 20px;
-  color: $like-color-red;
+.icon-list-style-hidden {
+  display: flex;
+  padding-bottom: 10px;
+  display: none;
+}
+
+.icon-list-style-show  {
+  animation-duration: 0.7s;
+  animation-name: slidein;
+  display: flex;
+  padding-bottom: 10px;
+  display: flex;
+  position: absolute;
+  margin-top: -25px;
+}
+.article-share ul li {
+  margin-right: 5px;
   cursor: pointer;
+
+  :hover {
+    opacity: 0.8;
+  }
+}
+
+@keyframes slidein {
+  from {
+    margin-left: 4%;
+    width: 300%;
+  }
+  to {
+    margin-left: 0%;
+    width: 100%;
+  }
 }
