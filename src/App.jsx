@@ -13,6 +13,7 @@ import SocialLogin from './components/auth/SocialMediaLogin';
 import NavBar from './components/presentation/NavBar';
 import Footer from './components/presentation/Footer';
 import NotFoundPage from './components/404/NotFoundPage';
+import SearchResult from './components/search/SearchResult';
 
 class App extends Component {
   async componentDidMount() {
@@ -34,6 +35,7 @@ class App extends Component {
             <Route path="/articles" component={AllArticles} />
             <Route path="/profile" component={ProfilePage} />
             <Route path="/social" component={SocialLogin} />
+            <Route path="/search" component={SearchResult} />
             <Route component={NotFoundPage} />
           </Switch>
           <Footer />

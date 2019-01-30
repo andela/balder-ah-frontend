@@ -1,8 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import './navbar.scss';
+import NavSearch from './NavSearch';
 
-const NavBar = () => (
+const NavBar = ({ location: { pathname } }) => (
   <nav className="nav">
     <div className="navbar">
       <div className="brand">
@@ -11,6 +13,11 @@ const NavBar = () => (
 
       <div className="nav-links">
         <ul id="nav-mobile" className="">
+          { pathname !== '/search' && (
+            <li>
+              <NavSearch />
+            </li>)
+            }
           <li>
             <Link to="/articles">Articles</Link>
           </li>
@@ -28,7 +35,19 @@ const NavBar = () => (
         </ul>
       </div>
     </div>
+
   </nav>
+
 );
 
-export default NavBar;
+NavBar.defaultProps = {
+  location: null,
+};
+
+NavBar.propTypes = {
+  location: PropTypes.oneOfType([
+    PropTypes.object,
+  ]),
+};
+
+export default withRouter(NavBar);

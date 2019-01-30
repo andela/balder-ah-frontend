@@ -1,0 +1,56 @@
+@import "../../assets/sass/partials/colors";
+
+.search-result {
+  padding: 40px 0;
+  min-height: 80vh;
+
+  .search-form {
+    display: flex;
+    justify-content: center;
+
+    > *:not(:last-child) {
+        margin-right: 8px;
+    }
+
+    .input-group {
+        flex: 0 0 50%;
+    }
+
+    span.query {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    input.search {
+      border: 2px solid darken($color-light-gray, 5%);
+      border-radius: 5px;
+      box-sizing: border-box;
+      margin: 0 8px 0 0;
+      padding: 0 15px;
+
+      &:focus,
+      &:active {
+        border: 2px solid darken($color-light-gray, 5%);;
+        box-shadow: 4px 8px 4px lighten($color-light-gray, 2%);
+      }
+    }
+
+    .btn {
+        border-radius: 5px;
+        background-color: $color-danger;
+        color: $color-white;
+    }
+  }
+
+  .found {
+      margin: 50px 0 20px;
+      border-bottom: 1px solid darken($color-light-gray, 5%);
+  }
+}
+
+.results {
+    display: flex;
+    flex-flow: row wrap;
+    box-sizing: border-box;
+    position: relative;
+}
