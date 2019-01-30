@@ -91,16 +91,14 @@ input::placeholder {
   transition-timing-function: ease-in-out;
 }
 
-@media(max-width: 1000px) {
-
+@media (max-width: 1000px) {
   .left-div,
   .form-area {
     width: 50%;
   }
 }
 
-@media(max-width: 600px) {
-
+@media (max-width: 600px) {
   .left-div {
     display: none;
   }

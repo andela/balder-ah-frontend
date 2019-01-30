@@ -6,6 +6,9 @@ import {
   VIEW_ARTICLE_ERROR,
   GET_ARTICLE_COMMENTS,
   COMMENT_ON_ARTICLE,
+  GET_ALL_ARTICLES,
+  GET_ALL_ARTICLES_FAILURE_MSG,
+  GET_ALL_ARTICLES_SUCCESS_MSG,
 } from './types';
 import authUtils from '../utils/auth';
 
@@ -50,5 +53,20 @@ export const commentOnArticle = (articleSlug, comment) => async (dispatch) => {
   } catch (error) {
     dispatch({ type: COMMENT_ON_ARTICLE });
     return null;
+  }
+};
+
+export const getArticles = pageNumber => async (dispatch) => {
+  try {
+    const pageQuery = pageNumber ? `?page=${pageNumber}` : '';
+    const response = await axios.get(`/articles${pageQuery}`);
+    const {
+      allArticles, message, pageCount, allTheArticles,
+    } = response.data;
+    dispatch({ type: GET_ALL_ARTICLES, payload: { data: allArticles, pageCount, allTheArticles } });
+    dispatch({ type: GET_ALL_ARTICLES_SUCCESS_MSG, payload: message });
+  } catch (error) {
+    const errorMessage = error.response.data.errors.body;
+    dispatch({ type: GET_ALL_ARTICLES_FAILURE_MSG, payload: errorMessage });
   }
 };

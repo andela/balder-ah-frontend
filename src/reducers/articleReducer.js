@@ -8,11 +8,15 @@ import {
   LIKE_ERROR,
   GET_ARTICLE_COMMENTS,
   COMMENT_ON_ARTICLE,
+  GET_ALL_ARTICLES,
+  GET_ALL_ARTICLES_SUCCESS_MSG,
+  GET_ALL_ARTICLES_FAILURE_MSG,
 } from '../actions/types';
 
 const initialState = {
   response: '',
   selectedArticle: { comments: [] },
+  all: { data: [], pageCount: 0 },
 };
 
 export default (state = initialState, action) => {
@@ -63,6 +67,12 @@ export default (state = initialState, action) => {
         : { ...state };
     case COMMENT_ON_ARTICLE:
       return { ...state };
+    case GET_ALL_ARTICLES:
+      return { ...state, all: action.payload };
+    case GET_ALL_ARTICLES_SUCCESS_MSG:
+      return { ...state, message: action.payload };
+    case GET_ALL_ARTICLES_FAILURE_MSG:
+      return { ...state, message: action.payload };
     default:
       return state;
   }

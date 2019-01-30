@@ -1,0 +1,78 @@
+@import "../../assets/sass/partials/colors";
+
+.feature-text {
+  color: $color-white;
+  margin-top: 70px;
+  text-align: center;
+}
+
+.article-tags {
+  bottom: 10px;
+  color: $color-gray;
+  padding: 10px;
+  padding-left: 0;
+}
+
+.article-description {
+  color: $color-gray;
+  padding: 10px;
+  padding-left: 0;
+}
+
+span {
+  padding-right: 10px;
+}
+
+.card-image {
+  height: 200px;
+
+  img {
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.article-author {
+  padding: 10px;
+  padding-left: 0;
+}
+
+.feature-image {
+  background: url("../../assets/images/Amazing-Old-Book-Desktop-Wallpapers.jpg")
+    no-repeat center;
+  height: 300px;
+  object-fit: fill;
+  width: 100%;
+}
+
+.all-article {
+  margin-bottom: 80px;
+}
+
+.trending-tags {
+  text-align: center;
+}
+
+.article-pagination {
+  display: flex;
+  justify-content: center;
+}
+
+.all-articles {
+  display: flex;
+  flex-direction: row;
+  flex-flow: wrap;
+}
+
+.article-card {
+  word-break: break-all;
+}
+
+.all-card-content {
+  display: flex;
+  flex-direction: inherit;
+}
+
+.pagination {
+  cursor: pointer;
+}

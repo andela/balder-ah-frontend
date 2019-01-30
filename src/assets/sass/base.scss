@@ -7,7 +7,7 @@
 }
 
 body {
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
 }
 
 html,
@@ -21,7 +21,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 .flash {
@@ -68,6 +68,23 @@ h6 {
 .btn-lg {
   display: block;
   width: 100%;
+}
+
+.btn-md {
+  margin: 10px;
+  position: absolute;
+  right: 10px;
+}
+
+@media (max-width: 600px) {
+  .btn-md {
+    font-size: inherit;
+    margin-right: 80px;
+  }
+}
+
+nav {
+  background-color: $nav-color;
 }
 
 .page-footer {

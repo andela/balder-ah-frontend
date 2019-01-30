@@ -15,7 +15,7 @@ class Signup extends Component {
     password: '',
     confirmPassword: '',
     message: false,
-  }
+  };
 
   onChange = event => this.setState({ [event.target.name]: event.target.value });
 
@@ -39,7 +39,7 @@ class Signup extends Component {
     setTimeout(() => {
       typeof message === 'string' ? history.push('/') : '';
     }, 500);
-  }
+  };
 
   comparePassword = () => {
     const { password, confirmPassword } = this.state;
@@ -50,7 +50,7 @@ class Signup extends Component {
       return this.setState({ message: false });
     }
     return false;
-  }
+  };
 
   render() {
     const {
@@ -65,7 +65,6 @@ class Signup extends Component {
         <div className="left-div" />
 
         <div className="form-area">
-
           <form className="signup-form" onSubmit={this.onSubmit}>
             <div className="form-header">
               <h2>Create your account</h2>
@@ -80,7 +79,7 @@ class Signup extends Component {
             <div className="formInputs">
               <div className="form-field">
                 <label htmlFor="username">
-                Username
+                  Username
                   <input
                     type="text"
                     id="username"
@@ -95,7 +94,7 @@ class Signup extends Component {
 
               <div className="form-field">
                 <label htmlFor="email">
-                Email
+                  Email
                   <input
                     type="email"
                     id="email"
@@ -110,7 +109,7 @@ class Signup extends Component {
 
               <div className="form-field">
                 <label htmlFor="password">
-                Password
+                  Password
                   <input
                     type="password"
                     id="password"
@@ -125,7 +124,7 @@ class Signup extends Component {
 
               <div className="form-field">
                 <label htmlFor="confirmPassword">
-                Confirm Password
+                  Confirm Password
                   <input
                     type="password"
                     id="confirmPassword"
@@ -139,7 +138,13 @@ class Signup extends Component {
               </div>
 
               <div className="form-field">
-                <button disabled={this.comparePassword && message} className="signupBtn" type="submit">Sign up</button>
+                <button
+                  disabled={this.comparePassword && message}
+                  className="signupBtn"
+                  type="submit"
+                >
+                  Sign up
+                </button>
               </div>
             </div>
             <div className="social-media-container">
@@ -150,7 +155,6 @@ class Signup extends Component {
               <Link to="/login"> Login </Link>
             </div>
           </form>
-
         </div>
       </div>
     );
@@ -171,4 +175,7 @@ const mapStateToProps = state => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { createUser })(Signup);
+export default connect(
+  mapStateToProps,
+  { createUser },
+)(Signup);

@@ -1,8 +1,6 @@
 import React from 'react';
-import { fireEvent, wait } from 'react-testing-library';
 import { Router } from 'react-router-dom';
-import 'react-testing-library/cleanup-after-each';
-import 'jest-dom/extend-expect';
+import { fireEvent, wait } from 'react-testing-library';
 import { createMemoryHistory } from 'history';
 import MockAdapter from 'axios-mock-adapter';
 import Login from './Login';
