@@ -1,8 +1,6 @@
 import React from 'react';
 import { fireEvent, wait } from 'react-testing-library';
 import { MemoryRouter } from 'react-router-dom';
-import 'react-testing-library/cleanup-after-each';
-import 'jest-dom/extend-expect';
 import MockAdapter from 'axios-mock-adapter';
 import Signup from './Signup';
 import axiosInstance from '../../utils/axiosInstance';
@@ -11,10 +9,12 @@ import { renderWithRedux } from '../../__mocks__/helpers';
 
 const axiosMock = new MockAdapter(axiosInstance, { delayResponse: 500 });
 
-
 const fillSubmitForm = (
-  usernameField, emailField, passwordField,
-  confirmPasswordField, submitButton,
+  usernameField,
+  emailField,
+  passwordField,
+  confirmPasswordField,
+  submitButton,
 ) => {
   fireEvent.change(usernameField, { target: { value: 'loremMaster' } });
   fireEvent.change(emailField, { target: { value: 'lorem@example.com' } });
@@ -32,7 +32,11 @@ describe('SignupForm', () => {
   let SignupComponent;
 
   beforeEach(() => {
-    const ui = <MemoryRouter><Signup /></MemoryRouter>;
+    const ui = (
+      <MemoryRouter>
+        <Signup />
+      </MemoryRouter>
+    );
     SignupComponent = renderWithRedux(ui, { initialState: { auth: { isLoggedIn: false } } });
     usernameField = SignupComponent.getByLabelText('Username');
     emailField = SignupComponent.getByLabelText('Email');
@@ -40,6 +44,7 @@ describe('SignupForm', () => {
     confirmPasswordField = SignupComponent.getByLabelText('Confirm Password');
     submitButton = SignupComponent.container.querySelector('button[type=submit]');
   });
+
   afterEach(axiosMock.reset);
   afterAll(axiosMock.restore);
 
@@ -65,9 +70,7 @@ describe('SignupForm', () => {
   test('fill and submit form with success', async () => {
     const { getByText } = SignupComponent;
 
-    await axiosMock
-      .onPost()
-      .replyOnce(200, { message: 'Welcome loremMaster', token: 'fakeToken' });
+    await axiosMock.onPost().replyOnce(200, { message: 'Welcome loremMaster', token: 'fakeToken' });
     // fill signup form
     fillSubmitForm(usernameField, emailField, passwordField, confirmPasswordField, submitButton);
 

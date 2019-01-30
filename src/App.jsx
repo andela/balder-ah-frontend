@@ -7,6 +7,7 @@ import Login from './components/auth/Login';
 import Signup from './components/auth/Signup';
 import CreateArticle from './components/article/CreateArticle';
 import ViewArticle from './components/article/ViewArticle';
+import AllArticles from './components/article/AllArticles';
 import ProfilePage from './components/profile/Profile';
 import SocialLogin from './components/auth/SocialMediaLogin';
 import NavBar from './components/presentation/NavBar';
@@ -30,6 +31,7 @@ class App extends Component {
             <Route path="/signup" component={Signup} />
             <Route path="/create-article" component={CreateArticle} />
             <Route path="/articles/:slug" component={ViewArticle} />
+            <Route path="/articles" component={AllArticles} />
             <Route path="/profile" component={ProfilePage} />
             <Route path="/social" component={SocialLogin} />
             <Route component={NotFoundPage} />
@@ -37,7 +39,6 @@ class App extends Component {
           <Footer />
         </Fragment>
       </Router>
-
     );
   }
 }

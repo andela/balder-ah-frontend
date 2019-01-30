@@ -12,25 +12,21 @@ const NavBar = () => (
       <div className="nav-links">
         <ul id="nav-mobile" className="">
           <li>
-            <Link to="/create-article">
-              Create article
-            </Link>
+            <Link to="/articles">Articles</Link>
+          </li>
+          <li>
+            <Link to="/create-article">Create article</Link>
           </li>
 
           <li>
-            <i className="small icon material-icons">
-              search
-            </i>
+            <i className="small icon material-icons">search</i>
           </li>
 
           <li>
-            <i className="small icon material-icons">
-              menu
-            </i>
+            <i className="small icon material-icons">menu</i>
           </li>
         </ul>
       </div>
-
     </div>
   </nav>
 );

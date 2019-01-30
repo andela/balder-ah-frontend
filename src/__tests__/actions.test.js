@@ -1,5 +1,11 @@
 import MockAdapter from 'axios-mock-adapter';
-import { createNewArticle, getArticle, commentOnArticle } from '../actions/articles';
+import {
+  createNewArticle,
+  getArticle,
+  commentOnArticle,
+  getArticles,
+} from '../actions/articles';
+import { login, getLoggedInUser } from '../actions/auth';
 import createUser from '../actions/signup';
 import axios from '../utils/axiosInstance';
 import { getProfile, updateProfile } from '../actions/profile';
@@ -13,8 +19,10 @@ import {
   VIEW_ARTICLE_ERROR,
   COMMENT_ON_ARTICLE,
   AUTHENTICATE_USER,
+  GET_ALL_ARTICLES,
+  GET_ALL_ARTICLES_SUCCESS_MSG,
+  GET_ALL_ARTICLES_FAILURE_MSG,
 } from '../actions/types';
-import { login, getLoggedInUser } from '../actions/auth';
 
 import authUtils from '../utils/auth';
 
@@ -69,6 +77,43 @@ describe('Redux actions', () => {
       expect(dispatch).toHaveBeenCalledTimes(1);
       expect(dispatch).toHaveBeenCalledWith({
         type: ERROR_SIGNUP_MESSAGE,
+        payload: payload.errors.body,
+      });
+    });
+  });
+
+  describe('allArticles action', () => {
+    test('call dispatch with correct type', async () => {
+      const payload = {
+        allArticles: [],
+        allTheArticles: 10,
+        message: 'All articles found successfully',
+        pageCount: 1,
+      };
+      await axiosMock.onGet().replyOnce(200, payload);
+      await getArticles()(dispatch);
+      expect(dispatch).toHaveBeenCalledTimes(2);
+      expect(dispatch).toHaveBeenNthCalledWith(1, {
+        type: GET_ALL_ARTICLES,
+        payload: {
+          data: [],
+          allTheArticles: 10,
+          pageCount: 1,
+        },
+      });
+      expect(dispatch).toHaveBeenNthCalledWith(2, {
+        type: GET_ALL_ARTICLES_SUCCESS_MSG,
+        payload: payload.message,
+      });
+    });
+
+    test('call dispatch with correct type', async () => {
+      const payload = { errors: { body: ['Not found'] } };
+      await axiosMock.onGet().replyOnce(500, payload);
+      await getArticles()(dispatch);
+      expect(dispatch).toHaveBeenCalledTimes(1);
+      expect(dispatch).toHaveBeenCalledWith({
+        type: GET_ALL_ARTICLES_FAILURE_MSG,
         payload: payload.errors.body,
       });
     });
