@@ -6,6 +6,7 @@ const initialState = {
   bio: '',
   image: '',
   rating: '0',
+  articles: [],
   error: '',
 };
 
@@ -33,6 +34,26 @@ export default (state = initialState, action) => {
         image: action.payload.user.image,
       };
     case type.UPDATE_USER_PROFILE_FAIL:
+      return {
+        ...state,
+        error: action.payload.message,
+      };
+    case type.GET_USER_ARTICLES:
+      return {
+        ...state,
+        articles: action.payload.articles.reverse(),
+      };
+    case type.GET_USER_ARTICLES_FAIL:
+      return {
+        ...state,
+        error: action.payload.message,
+      };
+    case type.DELETE_ARTICLE:
+      return {
+        ...state,
+        articles: state.articles.filter(article => article.slug !== action.payload.slug),
+      };
+    case type.DELETE_ARTICLE_FAIL:
       return {
         ...state,
         error: action.payload.message,

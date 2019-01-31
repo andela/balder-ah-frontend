@@ -88,6 +88,11 @@ h6 {
   right: 10px;
 }
 
+.btn-transparent {
+  border: none;
+  text-transform: lowercase;
+}
+
 @media (max-width: 600px) {
   .btn-md {
     font-size: inherit;
@@ -152,6 +157,14 @@ nav {
   cursor: pointer;
   font-size: 20px;
   user-select: none;
+}
+
+.fs-loader-container {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-height: 80vh;
+  min-width: 100vw;
 }
 
 

@@ -16,6 +16,8 @@ import NavBar from './components/presentation/NavBar';
 import Footer from './components/presentation/Footer';
 import NotFoundPage from './components/404/NotFoundPage';
 import SearchResult from './components/search/SearchResult';
+import AllUserArticles from './components/profile/articles/AllUserArticles';
+import PrivateRoute from './components/auth/PrivateRoute';
 
 class App extends Component {
   async componentDidMount() {
@@ -35,7 +37,8 @@ class App extends Component {
             <Route path="/create-article" component={CreateArticle} />
             <Route path="/articles/:slug" component={ViewArticle} />
             <Route path="/articles" component={AllArticles} />
-            <Route path="/profile" component={ProfilePage} />
+            <PrivateRoute path="/profile" component={ProfilePage} exact />
+            <PrivateRoute path="/profile/articles" component={AllUserArticles} exact />
             <Route path="/social" component={SocialLogin} />
             <Route path="/search" component={SearchResult} />
             <Route path="/reset-password" component={PasswordReset} />
