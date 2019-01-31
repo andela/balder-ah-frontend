@@ -9,7 +9,7 @@ const socialAuthButton = ({
 }) => (
   <Fragment>
     <a className={`icon-link ${anchoreElementClassName}`} href={href}>
-      <i className={`fab ${fontAwsomIcon}`} />
+      <i className={`fab fa ${fontAwsomIcon}`} />
       {socialMediaName}
     </a>
   </Fragment>

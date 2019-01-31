@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getLoggedInUser } from './actions/auth';
-import Index from './components/Index';
+import Home from './components/Home';
 import Login from './components/auth/Login';
 import Signup from './components/auth/Signup';
 import CreateArticle from './components/article/CreateArticle';
@@ -29,7 +29,7 @@ class App extends Component {
         <Fragment>
           <NavBar />
           <Switch>
-            <Route exact path="/" component={Index} />
+            <Route exact path="/" component={Home} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/create-article" component={CreateArticle} />

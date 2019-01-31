@@ -1,0 +1,31 @@
+main.main {
+    margin-bottom: 8rem;
+    min-height: 90vh;
+    padding: 1rem 0;
+    position: relative;
+
+    section {
+        margin-bottom: 4rem;
+    }
+
+    .heading {
+        flex: 0 0 100%;
+        font-size: 3.2rem;
+        font-weight: bold;
+        margin: 1.5rem 0;
+        padding-left: .5rem;
+    }
+    
+    .title {
+        font-size: 1.6rem;
+        margin: 0;
+
+        a {
+            color: #333;
+        }
+    }
+
+    .middle {
+        top: 40%;
+    }
+}

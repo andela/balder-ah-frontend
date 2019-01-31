@@ -6,13 +6,21 @@
   padding: 0;
 }
 
-body {
-  font-family: "Nunito", sans-serif;
-}
-
 html,
 body {
   color: $color-dark;
+  height: 100%;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Nunito", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  line-height: 1.6em;
 }
 
 h1,
@@ -21,7 +29,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Montserrat", sans-serif;
+  font-family: Quicksand, sans-serif;
 }
 
 .flash {
@@ -56,6 +64,10 @@ h6 {
   height: auto;
   outline: transparent;
   transition: all 0.3s;
+
+  &.btn-small {
+    font-size: 1.2rem;
+  }
 
   &:hover,
   &:focus {
@@ -98,6 +110,7 @@ nav {
 
   a {
     color: $footer-text-color;
+    font-size: 1.6rem;
     padding: 10px;
   }
 
@@ -212,4 +225,8 @@ nav {
 .abs-center {
   position: absolute;
   left: 50%;
+}
+
+label {
+  font-size: 1.6rem;
 }

@@ -1,0 +1,13 @@
+@import "../../assets/sass/partials/_variables";
+
+section.featured {
+    display: flex;
+    flex-flow: row wrap;
+    margin-left: -1.2rem;
+    margin-right: -1.2rem;
+
+    .heading { 
+        margin-bottom: 0;
+        margin-left: 1.2rem;
+    }
+}

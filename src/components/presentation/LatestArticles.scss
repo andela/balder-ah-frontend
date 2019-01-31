@@ -1,0 +1,33 @@
+@import "../../assets/sass/partials/_variables";
+
+section.latest {
+    article.latest {
+        min-height: 3rem;
+        border-radius: 0 0 5px 5px;
+        box-shadow: $shadow;
+
+        img {
+            height: 180px;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .meta {
+            padding: 1.5rem 1.5rem 2rem;
+        }
+
+        .meta > *:not(:last-child) {
+            margin-bottom: 1.2rem;
+        }
+
+        .meta .author,
+        .meta .description {
+            color: #5F5F5F;
+            font-size: 1.4rem;
+        }
+
+        .meta .author span {
+            font-weight: bold;
+        }
+    }    
+}

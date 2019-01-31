@@ -24,7 +24,6 @@ const NavBar = ({ location: { pathname } }) => (
           <li>
             <Link to="/create-article">Create article</Link>
           </li>
-
           <li>
             <i className="small icon material-icons">menu</i>
           </li>

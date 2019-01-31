@@ -23,4 +23,23 @@ export const renderWithRedux = (
   store,
 });
 
+export const articles = {
+  allArticles: [{
+    id: 1,
+    title: 'something funny',
+    slug: 'something-funny',
+    author: { username: 'johndoe' },
+    imgUrl: 'https://img.io',
+    tags: [{ name: '' }],
+  }, {
+    id: 2,
+    title: 'other article',
+    slug: 'other-article',
+    author: { username: 'janedoe' },
+    imgUrl: 'https://img.io',
+    tags: [{ name: '' }],
+  },
+  ],
+};
+
 export default renderWithRouter;
