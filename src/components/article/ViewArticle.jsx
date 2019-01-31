@@ -3,15 +3,16 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getArticle } from '../../actions/articles';
-import DisplayMessage from '../presentation/DisplayMessage';
-import CommentForm from '../comment/CommentForm';
-import ArticleRating from '../presentation/RateArticles';
-import './ViewArticle.scss';
-import Like from '../presentation/likeButton/Like';
 import { like, unlike } from '../../actions/reactions/like';
+import DisplayMessage from '../presentation/DisplayMessage';
+import ArticleRating from '../presentation/RateArticles';
+import Like from '../presentation/likeButton/Like';
 import PreLoader from '../presentation/PreLoader';
-import CommentList from '../comment/CommentList';
 import Share from '../presentation/shareButton/Share';
+import ReadTime from '../presentation/ReadTime';
+import CommentForm from '../comment/CommentForm';
+import CommentList from '../comment/CommentList';
+import './ViewArticle.scss';
 
 class ViewArticle extends React.Component {
   state = {
@@ -60,7 +61,7 @@ class ViewArticle extends React.Component {
       articleRatingStar,
     } = this.props;
     const {
-      title, body, imgUrl, readtime, createdAt,
+      title, body, imgUrl, createdAt,
     } = article;
     const { username } = author;
     const date = new Date(createdAt).toDateString();
@@ -98,14 +99,8 @@ class ViewArticle extends React.Component {
                   {username}
                 </p>
 
-                <div className="read-time">
-                  <i className="little material-icons icon">schedule</i>
-                  <p>
-                    &nbsp;
-                    {readtime}
-                    &nbsp;
-                    read
-                  </p>
+                <div>
+                  <ReadTime article={article} />
                 </div>
 
                 <div className="article-rate" />
