@@ -11,6 +11,8 @@ import {
   GET_ALL_ARTICLES_FAILURE_MSG,
   GET_ALL_ARTICLES_SUCCESS_MSG,
   EDIT_COMMENT,
+  UPDATE_ARTICLE,
+  UPDATE_ARTICLE_ERROR,
 } from './types';
 import authUtils from '../utils/auth';
 
@@ -80,5 +82,18 @@ export const editComment = (editedComment, id, articleSlug) => async (dispatch) 
     dispatch({ type: EDIT_COMMENT, payload: { body: editedComment, id } });
   } catch (error) {
     toastr.error('Failed to edit comment.');
+  }
+};
+export const editArticle = (articleSlug, articleData) => async (dispatch) => {
+  try {
+    const userToken = authUtils.getUserToken();
+    axios.defaults.headers.common.Authorization = userToken;
+    const { data: { message } } = await axios.put(`/articles/${articleSlug}`, articleData);
+    dispatch({ type: UPDATE_ARTICLE, payload: message });
+    toastr.success(message);
+  } catch ({ response }) {
+    const errorMessage = response;
+    dispatch({ type: UPDATE_ARTICLE_ERROR, payload: errorMessage });
+    toastr.error(errorMessage);
   }
 };
