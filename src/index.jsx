@@ -4,6 +4,7 @@ import { config } from 'dotenv';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
+import 'toastr/toastr.scss';
 import 'normalize.css';
 import './assets/sass/base.scss';
 import reducers from './reducers';

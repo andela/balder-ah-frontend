@@ -50,7 +50,7 @@ class ArticleRating extends Component {
         />
         <p className="rating-response">
           {
-            !isLoggedIn ? 'Please login to add rating' : currentRating && `You rated a ${currentRating}`
+            !isLoggedIn ? 'Please login to add a rating' : currentRating && `You rated a ${currentRating}`
           }
         </p>
       </div>
