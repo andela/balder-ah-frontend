@@ -8,6 +8,7 @@ const initialState = {
   rating: '0',
   articles: [],
   error: '',
+  emailNotification: false,
 };
 
 export default (state = initialState, action) => {
@@ -20,6 +21,7 @@ export default (state = initialState, action) => {
         bio: action.payload.user.bio || 'no bio',
         image: action.payload.user.image || 'https://data.whicdn.com/images/132992502/large.jpg',
         rating: action.payload.user.authorRating,
+        emailNotification: action.payload.user.emailNotification,
       };
     case type.GET_USER_PROFILE_FAIL:
       return {
@@ -57,6 +59,16 @@ export default (state = initialState, action) => {
       return {
         ...state,
         error: action.payload.message,
+      };
+    case type.OPT_IN:
+      return {
+        ...state,
+        emailNotification: true,
+      };
+    case type.OPT_OUT:
+      return {
+        ...state,
+        emailNotification: false,
       };
     default:
       return state;

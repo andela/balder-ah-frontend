@@ -18,6 +18,7 @@ import NotFoundPage from './components/404/NotFoundPage';
 import SearchResult from './components/search/SearchResult';
 import AllUserArticles from './components/profile/articles/AllUserArticles';
 import PrivateRoute from './components/auth/PrivateRoute';
+import ToggleNotification from './components/presentation/toggleButton/ToggleNotification';
 
 class App extends Component {
   async componentDidMount() {
@@ -43,6 +44,7 @@ class App extends Component {
             <Route path="/search" component={SearchResult} />
             <Route path="/reset-password" component={PasswordReset} />
             <Route path="/update-password" component={UpdatePassword} />
+            <Route path="/toggle" component={ToggleNotification} />
             <Route component={NotFoundPage} />
           </Switch>
           <Footer />

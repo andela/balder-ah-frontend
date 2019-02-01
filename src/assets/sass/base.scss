@@ -224,6 +224,14 @@ nav {
   }
 }
 
+.switch-style {
+  display: grid;
+}
+.email-settings {
+  font-size: 15px;
+  width: 136px;
+}
+
 @keyframes slidein {
   from {
     margin-left: 4%;

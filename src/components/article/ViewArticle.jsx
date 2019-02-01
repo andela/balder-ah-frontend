@@ -86,7 +86,6 @@ class ViewArticle extends React.Component {
       createdAt,
       bookmarked,
     } = article;
-
     const { username } = author;
     const articleSlug = slug;
     return (

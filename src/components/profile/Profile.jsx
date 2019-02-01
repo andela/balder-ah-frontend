@@ -9,6 +9,8 @@ import BigArticleCard from '../presentation/BigArticleCard';
 import SmallArticleCard from '../presentation/SmallArticleCard';
 import UserTopArticles from './UserTopArticles';
 import { getProfile } from '../../actions/profile';
+import ToggleNotification from '../presentation/toggleButton/ToggleNotification';
+import { optOutNotification, optInNotification } from '../../actions/optInOut';
 
 /**
  * @class
@@ -30,6 +32,7 @@ export class Profile extends Component {
     editProfile: false,
   };
 
+
   /**
    * @method
    * @description - react lifecycle method
@@ -37,6 +40,12 @@ export class Profile extends Component {
    */
   componentDidMount() {
     this.getUserProfile();
+  }
+
+
+  onChange = () => {
+    const { inEmail, optInNotification: optIn, optOutNotification: optOut } = this.props;
+    return inEmail ? optOut() : optIn();
   }
 
   /**
@@ -73,8 +82,10 @@ export class Profile extends Component {
       bio,
       image,
       rating,
+      inEmail,
     } = this.props;
     const { editProfile } = this.state;
+
 
     return (
       <section className="container">
@@ -89,6 +100,11 @@ export class Profile extends Component {
         <EditProfileModal
           toggleModal={editProfile}
           onToggleModal={this.onEditProfile}
+        />
+        <ToggleNotification
+          emailNotificationStatus={inEmail}
+          onChange={this.onChange}
+          name="email"
         />
         <br />
         <br />
@@ -117,10 +133,13 @@ export class Profile extends Component {
 
 Profile.propTypes = {
   getProfile: PropTypes.func.isRequired,
+  optInNotification: PropTypes.func.isRequired,
+  optOutNotification: PropTypes.func.isRequired,
   username: PropTypes.string.isRequired,
   rating: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   image: PropTypes.string.isRequired,
   bio: PropTypes.string.isRequired,
+  inEmail: PropTypes.bool.isRequired,
   error: PropTypes.string,
 };
 
@@ -135,9 +154,10 @@ const mapStateToProps = state => ({
   image: state.profile.image,
   email: state.profile.email,
   error: state.profile.error,
+  inEmail: state.profile.emailNotification,
 });
 
 export default connect(
   mapStateToProps,
-  { getProfile },
+  { getProfile, optInNotification, optOutNotification },
 )(Profile);
