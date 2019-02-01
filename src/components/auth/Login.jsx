@@ -77,7 +77,7 @@ class Login extends Component {
             />
             <div className="input-group-flex">
               <Field label="Remember me" name="rememberMe" id="checkbox" component={Checkbox} />
-              <span className="link">Forgot password?</span>
+              <Link to="/reset-password"><span className="link">Forgot password?</span></Link>
             </div>
             <div className="input-group">
               <Button disabled={submitting} type="submit" className="waves-effect waves-light btn btn-lg" title="Login" />
