@@ -1,0 +1,53 @@
+@import "../../assets/sass/partials/colors";
+
+.edit-comment {
+    background-color: $color-light-gray;
+    padding: 12px;
+
+    .edit-comment-box {
+        background-color: $color-white;
+        border: 1px solid $color-dark-gray;
+        border-radius: 5px;
+        padding: 8px;
+        font-size: 14px;
+        height: 70px;
+        resize: none;
+        outline: 0;
+    }
+    
+}
+.edit-comment-btns {
+    button:not(:last-child) {
+        margin-right: 8px;
+    }
+
+    .edit-comment-cancel,
+    .edit-comment-save {
+        border-radius: 5px;
+        cursor: pointer;
+        padding: 4px 8px;
+    }
+
+    .edit-comment-cancel {
+        background-color: $color-white;
+        border: 1px solid $color-dark-gray;
+
+        &:hover {
+            background-color: $color-dark;
+            border-color: $color-dark;
+            color: $color-white;
+        }
+    }
+
+    .edit-comment-save {
+        background-color: $color-danger;
+        border: 1px solid darken($color-danger, 5%);
+        color: $color-white;
+
+        &:hover {
+            background-color: lighten($color-danger, 5%);
+            border-color: lighten($color-danger, 5%);
+            color: darken($color-white, 2%)
+        }
+    }
+}

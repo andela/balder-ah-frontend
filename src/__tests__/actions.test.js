@@ -3,10 +3,10 @@ import toast from 'toastr';
 import {
   createNewArticle,
   getArticle,
-  commentOnArticle,
   getArticles,
+  commentOnArticle,
+  editComment,
 } from '../actions/articles';
-import { login, getLoggedInUser } from '../actions/auth';
 import createUser from '../actions/signup';
 import axios from '../utils/axiosInstance';
 import { getProfile, updateProfile, getUserArticles, deleteArticle } from '../actions/profile';
@@ -24,7 +24,9 @@ import {
   GET_ALL_ARTICLES_SUCCESS_MSG,
   GET_ALL_ARTICLES_FAILURE_MSG,
   SEARCH,
+  EDIT_COMMENT,
 } from '../actions/types';
+import { login, getLoggedInUser } from '../actions/auth';
 import search from '../actions/search';
 
 import authUtils from '../utils/auth';
@@ -314,6 +316,26 @@ describe('Redux actions', () => {
 
       expect(dispatch).toHaveBeenCalledTimes(1);
       expect(dispatch).toHaveBeenCalledWith({ type: SEARCH });
+    });
+  });
+
+  describe('editComment', () => {
+    test('edit comment successfully', async () => {
+      axiosMock.onPut().replyOnce(200);
+      const editedComment = 'new comment';
+      const id = 1;
+      await editComment(editedComment, id, 'nice-slug')(dispatch);
+      expect(dispatch).toHaveBeenCalledTimes(1);
+      expect(dispatch).toHaveBeenCalledWith({
+        type: EDIT_COMMENT,
+        payload: { body: editedComment, id },
+      });
+    });
+
+    test('edit comment successfully', async () => {
+      axiosMock.onPut().replyOnce(500);
+      await editComment()(dispatch);
+      expect(dispatch).toHaveBeenCalledTimes(0);
     });
   });
 });

@@ -17,6 +17,7 @@ import {
   UNBOOKMARK,
   UNBOOKMARK_ERROR,
   UNBOOKMARK_ON_ALL,
+  EDIT_COMMENT,
 } from '../actions/types';
 
 const initialState = {
@@ -28,6 +29,7 @@ const initialState = {
 export default (state = initialState, action) => {
   const { type, payload } = action;
   const { all: { data } } = state;
+  const { selectedArticle } = state;
   switch (type) {
     case CREATE_ARTICLE:
       return {
@@ -145,6 +147,21 @@ export default (state = initialState, action) => {
       return {
         ...state,
         unbookmarkMessage: action.payload,
+      };
+    case EDIT_COMMENT:
+      return {
+        ...state,
+        selectedArticle: {
+          ...selectedArticle,
+          comments: selectedArticle.comments.map((comment) => {
+            if (comment.id === payload.id) {
+              const updatedComment = { ...comment };
+              updatedComment.body = payload.body;
+              return updatedComment;
+            }
+            return comment;
+          }),
+        },
       };
     default:
       return state;
