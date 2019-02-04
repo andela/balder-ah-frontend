@@ -25,8 +25,18 @@ export const UNLIKE = 'UNLIKE';
 export const LIKE_ERROR = 'LIKE_ERROR';
 export const GET_ARTICLE = 'GET_ARTICLE';
 export const SOCIAL_AUTH = 'SOCIAL_AUTH';
+
 export const ARTICLE_RATING_ERROR = 'ARTICLE_RATING_ERROR';
 
 export const SEARCH = 'SEARCH';
+
 export const PASSWORD_RESET = 'PASSWORD_RESET';
 export const UPDATE_PASSWORD = 'UPDATE_PASSWORD';
+
+export const BOOKMARK = 'BOOKMARK';
+export const BOOKMARK_ERROR = 'BOOKMARK_ERROR';
+export const BOOKMARK_ON_ALL = 'BOOKMARK_ON_ALL';
+
+export const UNBOOKMARK = 'UNBOOKMARK';
+export const UNBOOKMARK_ERROR = 'UNBOOKMARK_ERROR';
+export const UNBOOKMARK_ON_ALL = 'UNBOOKMARK_ON_ALL';

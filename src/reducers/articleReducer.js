@@ -11,6 +11,12 @@ import {
   GET_ALL_ARTICLES,
   GET_ALL_ARTICLES_SUCCESS_MSG,
   GET_ALL_ARTICLES_FAILURE_MSG,
+  BOOKMARK,
+  BOOKMARK_ERROR,
+  BOOKMARK_ON_ALL,
+  UNBOOKMARK,
+  UNBOOKMARK_ERROR,
+  UNBOOKMARK_ON_ALL,
 } from '../actions/types';
 
 const initialState = {
@@ -21,6 +27,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
   const { type, payload } = action;
+  const { all: { data } } = state;
   switch (type) {
     case CREATE_ARTICLE:
       return {
@@ -73,6 +80,72 @@ export default (state = initialState, action) => {
       return { ...state, message: action.payload };
     case GET_ALL_ARTICLES_FAILURE_MSG:
       return { ...state, message: action.payload };
+    case BOOKMARK:
+      return {
+        ...state,
+        response: {
+          ...state.response,
+          getOneArticle: {
+            ...state.response.getOneArticle,
+            bookmarked: true,
+          },
+        },
+      };
+
+    case BOOKMARK_ON_ALL:
+      return {
+        ...state,
+        all: {
+          ...state.all,
+          data: data.map((article) => {
+            if (article.id === payload.id) {
+              const modifiedArticle = { ...article };
+              modifiedArticle.bookmarked = true;
+              return modifiedArticle;
+            }
+            return article;
+          }),
+        },
+      };
+
+    case BOOKMARK_ERROR:
+      return {
+        ...state,
+        bookMarkmessage: action.payload,
+      };
+    case UNBOOKMARK:
+      return {
+        ...state,
+        response: {
+          ...state.response,
+          getOneArticle: {
+            ...state.response.getOneArticle,
+            bookmarked: false,
+          },
+        },
+      };
+
+    case UNBOOKMARK_ON_ALL:
+      return {
+        ...state,
+        all: {
+          ...state.all,
+          data: data.map((article) => {
+            if (article.id === payload.articleId) {
+              const modifiedArticle = { ...article };
+              modifiedArticle.bookmarked = false;
+              return modifiedArticle;
+            }
+            return article;
+          }),
+        },
+      };
+
+    case UNBOOKMARK_ERROR:
+      return {
+        ...state,
+        unbookmarkMessage: action.payload,
+      };
     default:
       return state;
   }

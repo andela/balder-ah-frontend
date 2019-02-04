@@ -26,10 +26,6 @@ const NavBar = ({ location: { pathname } }) => (
           </li>
 
           <li>
-            <i className="small icon material-icons">search</i>
-          </li>
-
-          <li>
             <i className="small icon material-icons">menu</i>
           </li>
         </ul>

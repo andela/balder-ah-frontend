@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ReactPaginate from 'react-paginate';
 import PropTypes from 'prop-types';
+import toastr from 'toastr';
+
 import { getArticles } from '../../actions/articles';
+import { bookmarkArticle, unbookmarkArticle } from '../../actions/reactions/bookmark';
 import ArticleCard from '../presentation/ArticleCard';
 import './AllArticles.scss';
 import PreLoader from '../presentation/PreLoader';
@@ -26,12 +29,31 @@ class AllArticles extends Component {
     this.setState({ isFetching: false });
   };
 
+  handleBookmarkClick = ({ id, slug, bookmarked }) => {
+    const {
+      bookmarkArticle: bookMark,
+      unbookmarkArticle: unbookMark,
+      isLoggedIn,
+    } = this.props;
+    const articlePage = 'allArticles';
+    if (isLoggedIn === false) {
+      return toastr.error('Please login or signup');
+    }
+    return bookmarked ? unbookMark(id, articlePage) : bookMark(slug, articlePage, id);
+  }
+
   renderArticles() {
     const { allArticles } = this.props;
     const { isFetching } = this.state;
 
     if (!isFetching) {
-      return allArticles.data.map(article => <ArticleCard key={article.id} article={article} />);
+      return (allArticles.data.map(article => (
+        <ArticleCard
+          key={article.id}
+          handleBookmarkClick={() => this.handleBookmarkClick(article)}
+          article={article}
+        />
+      )));
     }
     return <PreLoader />;
   }
@@ -89,17 +111,26 @@ class AllArticles extends Component {
 
 AllArticles.defaultProps = {
   allArticles: [],
+  isLoggedIn: null,
 };
 
-const mapStateToProps = state => ({
-  allArticles: state.article.all,
-  message: state.article.message,
+const mapStateToProps = ({ auth, article }) => ({
+  isLoggedIn: auth && auth.isLoggedIn ? auth.isLoggedIn : false,
+  allArticles: article.all,
+  message: article.message,
 });
 
 AllArticles.propTypes = {
   allArticles: PropTypes.oneOfType([PropTypes.any, PropTypes.object]),
+  bookmarkArticle: PropTypes.func.isRequired,
+  unbookmarkArticle: PropTypes.func.isRequired,
+  isLoggedIn: PropTypes.bool,
 };
 export default connect(
   mapStateToProps,
-  { getArticles },
+  {
+    getArticles,
+    bookmarkArticle,
+    unbookmarkArticle,
+  },
 )(AllArticles);
