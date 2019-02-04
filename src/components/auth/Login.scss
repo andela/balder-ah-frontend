@@ -108,8 +108,9 @@ a.icon-link {
   @include vertical-align-to(space-between);
   font-size: 15px;
 
-  .input-checkbox-label {
+  span.input-checkbox-label {
     flex: 1;
+    font-size: 1.4rem;
     margin-left: 5px;
     // START https://stackoverflow.com/a/7018415
     -webkit-user-select: none;

@@ -1,0 +1,70 @@
+.trend.top {
+    height: auto;
+
+    > * {
+        margin-bottom: .8rem;
+    }
+    
+    img {
+        height: 25rem;
+        object-fit: cover;
+        width: 100%;
+    }
+
+    .title {
+        font-size: 2.2rem;
+        margin-bottom: .8rem;
+    }
+    
+    .description {
+        color: #5F5F5F;
+        font-size: 1.6rem;
+    }
+
+    .author {
+        font-size: 1.4rem;
+    }
+
+    .more {
+        align-items: center;
+        display: flex;
+    }
+
+    .more .ratings {
+        flex: 1;
+    }
+}
+
+.trend {
+    height: 12rem;
+
+    img {
+        height: 12rem;
+        object-fit: cover;
+        width: 100%;
+    }
+
+    .author span {
+        font-weight: bold;
+    }
+
+    .description {
+        color: #5F5F5F;
+        font-size: 1.2rem;
+    }
+
+    .author {
+        font-size: 1.2rem;
+    }
+}
+
+.trend-right {
+    display: flex;
+    flex: 1;
+    flex-flow: row wrap;
+
+    .trend {
+        height: auto;
+        margin-bottom: 1.5rem;
+    }
+}
