@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Like from '../presentation/likeButton/Like';
+import { likeComment, unlikeComment } from '../../actions/reactions/likeComment';
 import './Comment.scss';
 import anonymousAvatar from '../../assets/images/anonymous.png';
 import Button from '../presentation/Button';
@@ -39,14 +41,26 @@ class Comment extends Component {
     this.setState({ editing: true });
   }
 
+
+  handleFavouriteComment = async (commentId) => {
+    try {
+      const {
+        article: { slug }, likeComment: commentLike, unlikeComment: commentUnlike, isCommentLike,
+      } = this.props;
+      return isCommentLike
+        ? await commentUnlike(slug, commentId) : await commentLike(slug, commentId);
+    } catch (error) {
+      return null;
+    }
+  }
+
   render() {
-    const { comment, user } = this.props;
     const { editing, editedComment } = this.state;
+    const { comment, isCommentLike, user } = this.props;
     const {
-      userId: authorId, body, createdAt, author: { username, image }, id, edited: isEdited,
+      body, createdAt, author: { username, image }, userId: authorId, id, edited: isEdited,
     } = comment;
     const isCommentAuthor = user && user.id === authorId;
-
     return (
       <div className="comment">
         <img
@@ -81,6 +95,13 @@ class Comment extends Component {
             />
             )
           }
+          {/* <p className="comment-date">{(new Date(createdAt)).toDateString()}</p>
+          <p className="comment-body">{body}</p> */}
+          <Like
+            handleClick={() => this.handleFavouriteComment(id)}
+            isLike={isCommentLike}
+
+          />
         </div>
       </div>
     );
@@ -92,6 +113,14 @@ Comment.defaultProps = {
   editComment: null,
 };
 
+const mapStateToProps = ({ auth, article }) => ({
+  isLoggedIn: auth && auth.isLoggedIn ? auth.isLoggedIn : false,
+  article: article && article.response.getOneArticle ? article.response.getOneArticle : '',
+  isCommentLike: article.selectedArticle
+  && article.selectedArticle.comments ? article.isCommentLike : false,
+  user: auth.user,
+});
+
 Comment.propTypes = {
   articleSlug: PropTypes.string,
   comment: PropTypes.oneOfType([PropTypes.object]).isRequired,
@@ -99,10 +128,7 @@ Comment.propTypes = {
     PropTypes.object,
   ]),
   editComment: PropTypes.func,
+  isCommentLike: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = ({ auth }) => ({ user: auth.user });
-
-export default connect(mapStateToProps, {
-  editComment,
-})(Comment);
+export default connect(mapStateToProps, { editComment, likeComment, unlikeComment })(Comment);
