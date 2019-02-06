@@ -6,6 +6,7 @@ const initialState = Object.freeze({
   bio: '',
   image: '',
   rating: '0',
+  articles: [],
   error: '',
 });
 
@@ -48,6 +49,16 @@ const updateProfileFailAction = {
   },
 };
 
+const getUserArticlesFail = {
+  type: 'GET_USER_ARTICLES_FAIL',
+  payload: { message: 'folding clothes' },
+};
+
+const deleteArticleFail = {
+  type: 'DELETE_ARTICLE_FAIL',
+  payload: { message: 'dollar and a dream' },
+};
+
 describe('Profile Reducer', () => {
   test('should set default state', () => {
     const state = profileReducer(undefined, { type: '@@INIT' });
@@ -64,6 +75,7 @@ describe('Profile Reducer', () => {
       image: 'kayi.ng',
       rating: 100,
       error: '',
+      articles: [],
     });
   });
 
@@ -77,6 +89,7 @@ describe('Profile Reducer', () => {
       image: '',
       rating: '0',
       error: 'not buying it!',
+      articles: [],
     });
   });
 
@@ -95,5 +108,17 @@ describe('Profile Reducer', () => {
     const state = profileReducer(undefined, updateProfileFailAction);
 
     expect(state).toEqual({ ...initialState, error: 'red leather michael' });
+  });
+
+  test('should fail to update user profile', () => {
+    const state = profileReducer(undefined, getUserArticlesFail);
+
+    expect(state).toEqual({ ...initialState, error: 'folding clothes' });
+  });
+
+  test('should fail to update user profile', () => {
+    const state = profileReducer(undefined, deleteArticleFail);
+
+    expect(state).toEqual({ ...initialState, error: 'dollar and a dream' });
   });
 });

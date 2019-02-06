@@ -1,0 +1,23 @@
+.user-articles-section {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 35px;
+  min-height: 80vh;
+}
+
+.user-articles-section__title {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 25px;
+}
+
+.no-articles {
+  align-items: center;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 60vh;
+  text-align: center;
+}

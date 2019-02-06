@@ -1,3 +1,5 @@
+import toast from 'toastr';
+
 import authUtils from '../utils/auth';
 import axios from '../utils/axiosInstance';
 import * as type from './types';
@@ -36,5 +38,30 @@ export const updateProfile = userData => async (dispatch) => {
         message: error.response ? error.response.data.message : 'something went wrong',
       },
     });
+  }
+};
+
+export const getUserArticles = () => async (dispatch) => {
+  try {
+    const {
+      currentUser: { articles },
+    } = (await axios.get('/user')).data;
+    return dispatch({ type: type.GET_USER_ARTICLES, payload: { articles } });
+  } catch (error) {
+    const message = error.response ? error.response.data.message : error.message;
+    dispatch({ type: type.GET_USER_ARTICLES_FAIL, payload: { message } });
+    return toast.error(message);
+  }
+};
+
+export const deleteArticle = slug => async (dispatch) => {
+  try {
+    await axios.delete(`/articles/${slug}`);
+    dispatch({ type: type.DELETE_ARTICLE, payload: { slug } });
+    return toast.success('Article deleted successfully');
+  } catch (error) {
+    const message = error.response ? error.response.data.message : error.message;
+    dispatch({ type: type.DELETE_ARTICLE_FAIL, payload: { message } });
+    return toast.error(message);
   }
 };

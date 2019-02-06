@@ -1,4 +1,5 @@
 import MockAdapter from 'axios-mock-adapter';
+import toast from 'toastr';
 import {
   createNewArticle,
   getArticle,
@@ -8,7 +9,7 @@ import {
 import { login, getLoggedInUser } from '../actions/auth';
 import createUser from '../actions/signup';
 import axios from '../utils/axiosInstance';
-import { getProfile, updateProfile } from '../actions/profile';
+import { getProfile, updateProfile, getUserArticles, deleteArticle } from '../actions/profile';
 import {
   ERROR_SIGNUP_MESSAGE,
   SIGN_UP,
@@ -28,7 +29,7 @@ import search from '../actions/search';
 
 import authUtils from '../utils/auth';
 
-const axiosMock = new MockAdapter(axios, { delayResponse: 500 });
+const axiosMock = new MockAdapter(axios, { delayResponse: 10 });
 
 describe('Redux actions', () => {
   const dispatch = jest.fn();
@@ -219,6 +220,29 @@ describe('Redux actions', () => {
       expect(dispatch).toHaveBeenCalled();
     });
   });
+
+  describe('getUserArticles()', () => {
+    const spy = jest.spyOn(toast, 'error');
+    test('should call dispatch on get articles failure', async () => {
+      axiosMock.onGet().replyOnce(500, { message: 'fetch failed' });
+      await getUserArticles()(dispatch);
+      expect(dispatch).toHaveBeenCalledWith({
+        type: 'GET_USER_ARTICLES_FAIL',
+        payload: { message: 'fetch failed' },
+      });
+      expect(spy).toHaveBeenCalledWith('fetch failed');
+    });
+
+    test('should call dispatch on delete article failure', async () => {
+      axiosMock.onDelete().replyOnce(500, { message: 'failed to delete article' });
+      await deleteArticle('one-slug')(dispatch);
+      expect(dispatch).toHaveBeenCalledWith({
+        type: 'DELETE_ARTICLE_FAIL',
+        payload: { message: 'failed to delete article' },
+      });
+    });
+  });
+
   describe('commentOnArticle', () => {
     test('comment successfully on article', async () => {
       axiosMock.onPost().replyOnce(200);
