@@ -69,10 +69,7 @@ export class Profile extends Component {
    */
   render() {
     const {
-      username,
-      bio,
-      image,
-      rating,
+      username, bio, image, rating,
     } = this.props;
     const { editProfile } = this.state;
 
@@ -86,10 +83,7 @@ export class Profile extends Component {
           buttonText="edit"
           buttonCallback={this.onEditProfile}
         />
-        <EditProfileModal
-          toggleModal={editProfile}
-          onToggleModal={this.onEditProfile}
-        />
+        <EditProfileModal toggleModal={editProfile} onToggleModal={this.onEditProfile} />
         <br />
         <br />
         <UserTopArticles />

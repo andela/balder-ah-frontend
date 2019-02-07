@@ -4,7 +4,10 @@ import authUtils from '../utils/auth';
 
 export const getLoggedInUser = () => async (dispatch) => {
   try {
-    const { data: { currentUser: user } } = await axios.get('/user');
+    const {
+      data: { currentUser: user },
+    } = await axios.get('/user');
+    window.localStorage.setItem('loggedUser', user.username);
     dispatch({ type: AUTHENTICATE_USER, payload: { user } });
   } catch (error) {
     dispatch({ type: AUTHENTICATE_USER });
