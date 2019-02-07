@@ -1,3 +1,4 @@
+import toastr from 'toastr';
 import axios from '../utils/axiosInstance';
 import {
   CREATE_ARTICLE,
@@ -9,6 +10,7 @@ import {
   GET_ALL_ARTICLES,
   GET_ALL_ARTICLES_FAILURE_MSG,
   GET_ALL_ARTICLES_SUCCESS_MSG,
+  EDIT_COMMENT,
 } from './types';
 import authUtils from '../utils/auth';
 
@@ -39,7 +41,7 @@ export const getArticle = articleSlug => async (dispatch) => {
 export const getArticleComments = articleSlug => async (dispatch) => {
   try {
     const { data } = await axios.get(`/articles/${articleSlug}/comments`);
-    dispatch({ type: GET_ARTICLE_COMMENTS, payload: data.comments.reverse() });
+    dispatch({ type: GET_ARTICLE_COMMENTS, payload: data.comments });
   } catch (error) {
     dispatch({ type: GET_ARTICLE_COMMENTS, payload: null });
   }
@@ -52,6 +54,7 @@ export const commentOnArticle = (articleSlug, comment) => async (dispatch) => {
     return getArticleComments(articleSlug)(dispatch);
   } catch (error) {
     dispatch({ type: COMMENT_ON_ARTICLE });
+    toastr.error('Failed to comment.');
     return null;
   }
 };
@@ -68,5 +71,14 @@ export const getArticles = pageNumber => async (dispatch) => {
   } catch (error) {
     const errorMessage = error.response.data.errors.body;
     dispatch({ type: GET_ALL_ARTICLES_FAILURE_MSG, payload: errorMessage });
+  }
+};
+
+export const editComment = (editedComment, id, articleSlug) => async (dispatch) => {
+  try {
+    await axios.put(`/articles/${articleSlug}/comments/${id}`, { body: editedComment });
+    dispatch({ type: EDIT_COMMENT, payload: { body: editedComment, id } });
+  } catch (error) {
+    toastr.error('Failed to edit comment.');
   }
 };

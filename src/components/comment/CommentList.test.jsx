@@ -1,8 +1,8 @@
 import React from 'react';
 import MockAdapter from 'axios-mock-adapter';
-import { waitForDomChange } from 'react-testing-library';
+import { waitForDomChange, fireEvent } from 'react-testing-library';
 import axios from '../../utils/axiosInstance';
-import { renderWithRedux } from '../../__mocks__/helpers';
+import { renderWithRedux, comments } from '../../__mocks__/helpers';
 import CommentList from './CommentList';
 
 const axiosMock = new MockAdapter(axios, { delayResponse: 500 });
@@ -31,5 +31,30 @@ describe('<CommentList />', () => {
     expect(getByText(/first comment/i)).toBeInTheDocument();
     expect(getByText(/janedoe/i)).toBeInTheDocument();
     expect(getByAltText(/janedoe avatar/i)).toBeInTheDocument();
+  });
+
+  const initialState = { auth: { user: { id: 1 } } };
+
+  test('edits a comment', async () => {
+    axiosMock.onGet().replyOnce(200, comments);
+    const { getByText, container } = renderWithRedux(<CommentList />, { initialState });
+
+    await waitForDomChange({ container });
+    const editButton = getByText(/edit/i);
+
+    expect(editButton).toBeInTheDocument();
+    fireEvent.click(editButton);
+    const editBox = container.querySelector('textarea.edit-comment-box');
+
+    // change body of existing comment
+    const updatedComment = 'wooohooo';
+    fireEvent.change(editBox, { target: { value: updatedComment } });
+    axiosMock.onPut().replyOnce(200);
+    fireEvent.click(getByText(/save changes/i));
+    await waitForDomChange({ container });
+
+    // edit without changing comment body
+    fireEvent.click(editButton);
+    fireEvent.click(getByText(/save changes/i));
   });
 });
