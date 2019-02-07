@@ -30,6 +30,11 @@ const getProfileFailAction = {
   },
 };
 
+const articlePayload = {
+  type: 'UPDATE_ARTICLE',
+  articlePayload: 'Article has been updated successfully',
+};
+
 const updateProfileAction = {
   type: 'UPDATE_USER_PROFILE',
   payload: {

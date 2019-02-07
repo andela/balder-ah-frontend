@@ -30,6 +30,12 @@ class AllUserArticles extends Component {
     if (confirmDelete) await deleteOneArticle(slug);
   };
 
+  handleEditArticle = (slug) => {
+    const { history } = this.props;
+    const editArticlePath = `/edit-article/${slug}`;
+    return history.push(editArticlePath);
+  }
+
   render() {
     const { fetching } = this.state;
     const { articles } = this.props;
@@ -45,6 +51,7 @@ class AllUserArticles extends Component {
                   articleSlug={article.slug}
                   key={article.slug}
                   deleteCallback={() => this.handleDeleteArticle(article.slug)}
+                  editCallback={() => this.handleEditArticle(article.slug)}
                 />
               ))}
             </div>
@@ -68,6 +75,7 @@ AllUserArticles.defaultProps = {
 
 AllUserArticles.propTypes = {
   articles: PropTypes.arrayOf(PropTypes.instanceOf(Object)),
+  history: PropTypes.arrayOf(PropTypes.instanceOf(Object)).isRequired,
   getUserArticles: PropTypes.func.isRequired,
   deleteArticle: PropTypes.func.isRequired,
 };

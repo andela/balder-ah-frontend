@@ -18,6 +18,8 @@ import {
   UNBOOKMARK_ERROR,
   UNBOOKMARK_ON_ALL,
   EDIT_COMMENT,
+  UPDATE_ARTICLE,
+  UPDATE_ARTICLE_ERROR,
 } from '../actions/types';
 
 const initialState = {
@@ -163,6 +165,10 @@ export default (state = initialState, action) => {
           }),
         },
       };
+    case UPDATE_ARTICLE:
+      return { ...state, upDateArticleMessage: payload };
+    case UPDATE_ARTICLE_ERROR:
+      return { ...state, ErrorMessage: payload };
     default:
       return state;
   }

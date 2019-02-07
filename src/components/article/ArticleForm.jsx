@@ -94,8 +94,9 @@ class ArticleForm extends React.Component {
 
     const { actionType } = this.props;
     if (actionType === 'create') {
-      this.postArticle(event);
+      return this.postArticle(event);
     }
+    return this.postArticle(event);
   }
 
   render() {

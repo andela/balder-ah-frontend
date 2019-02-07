@@ -6,10 +6,13 @@ import {
   getArticles,
   commentOnArticle,
   editComment,
+  editArticle,
 } from '../actions/articles';
 import createUser from '../actions/signup';
 import axios from '../utils/axiosInstance';
-import { getProfile, updateProfile, getUserArticles, deleteArticle } from '../actions/profile';
+import {
+  getProfile, updateProfile, getUserArticles, deleteArticle,
+} from '../actions/profile';
 import {
   ERROR_SIGNUP_MESSAGE,
   SIGN_UP,
@@ -25,6 +28,7 @@ import {
   GET_ALL_ARTICLES_FAILURE_MSG,
   SEARCH,
   EDIT_COMMENT,
+  UPDATE_ARTICLE,
 } from '../actions/types';
 import { login, getLoggedInUser } from '../actions/auth';
 import search from '../actions/search';
@@ -242,6 +246,19 @@ describe('Redux actions', () => {
         type: 'DELETE_ARTICLE_FAIL',
         payload: { message: 'failed to delete article' },
       });
+    });
+  });
+
+  describe('editArticle', () => {
+    const spy = jest.spyOn(toast, 'success');
+    test('should call dispatch on edit articles success', async () => {
+      axiosMock.onPut().replyOnce(200, { message: 'update succeded' });
+      await editArticle()(dispatch);
+      expect(dispatch).toHaveBeenCalledWith({
+        type: UPDATE_ARTICLE,
+        payload: 'update succeded',
+      });
+      expect(spy).toHaveBeenCalledWith('update succeded');
     });
   });
 
