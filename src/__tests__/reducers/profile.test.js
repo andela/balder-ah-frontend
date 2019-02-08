@@ -8,6 +8,7 @@ const initialState = Object.freeze({
   rating: '0',
   articles: [],
   error: '',
+  emailNotification: false,
 });
 
 const getProfileAction = {
@@ -90,6 +91,7 @@ describe('Profile Reducer', () => {
       rating: '0',
       error: 'not buying it!',
       articles: [],
+      emailNotification: false,
     });
   });
 

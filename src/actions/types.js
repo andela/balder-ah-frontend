@@ -45,3 +45,6 @@ export const BOOKMARK_ON_ALL = 'BOOKMARK_ON_ALL';
 export const UNBOOKMARK = 'UNBOOKMARK';
 export const UNBOOKMARK_ERROR = 'UNBOOKMARK_ERROR';
 export const UNBOOKMARK_ON_ALL = 'UNBOOKMARK_ON_ALL';
+export const OPT_IN = 'OPT_IN';
+export const OPT_OUT = 'OPT_OUT';
+export const OPT_ERROR = 'OPT_ERROR';
