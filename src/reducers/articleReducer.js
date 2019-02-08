@@ -18,12 +18,16 @@ import {
   UNBOOKMARK_ERROR,
   UNBOOKMARK_ON_ALL,
   EDIT_COMMENT,
+  LIKE_COMMENT,
+  ERROR_LIKE_OR_UNLIKE_COMMENT,
+  UNLIKE_COMMENT,
 } from '../actions/types';
 
 const initialState = {
   response: '',
   selectedArticle: { comments: [] },
   all: { data: [], pageCount: 0 },
+  isCommentLike: false,
 };
 
 export default (state = initialState, action) => {
@@ -70,6 +74,12 @@ export default (state = initialState, action) => {
         type: action.type,
         likeError: action.error,
       };
+    case LIKE_COMMENT:
+      return { ...state, isCommentLike: true };
+    case UNLIKE_COMMENT:
+      return { ...state, isCommentLike: false };
+    case ERROR_LIKE_OR_UNLIKE_COMMENT:
+      return { ...state, type: action.type, likeCommentError: action.error };
     case GET_ARTICLE_COMMENTS:
       return payload
         ? { ...state, selectedArticle: { ...state.selectedArticle, comments: payload } }
