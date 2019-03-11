@@ -6,6 +6,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import 'toastr/toastr.scss';
 import 'normalize.css';
+import 'toastr/toastr.scss';
 import './assets/sass/base.scss';
 import reducers from './reducers';
 import App from './App';

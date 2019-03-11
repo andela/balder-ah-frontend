@@ -7,6 +7,8 @@ const initialState = Object.freeze({
   image: '',
   rating: '0',
   articles: [],
+  followers: null,
+  isFollowing: null,
   error: '',
 });
 
@@ -19,6 +21,8 @@ const getProfileAction = {
       bio: 'kaying to mars',
       image: 'kayi.ng',
       authorRating: 100,
+      followers: {},
+      isFollowing: null,
     },
   },
 };
@@ -74,6 +78,8 @@ describe('Profile Reducer', () => {
       bio: 'kaying to mars',
       image: 'kayi.ng',
       rating: 100,
+      followers: null,
+      isFollowing: null,
       error: '',
       articles: [],
     });
@@ -88,6 +94,8 @@ describe('Profile Reducer', () => {
       bio: '',
       image: '',
       rating: '0',
+      followers: null,
+      isFollowing: null,
       error: 'not buying it!',
       articles: [],
     });

@@ -11,13 +11,19 @@ class CommentList extends Component {
   }
 
   render() {
-    const { comments } = this.props;
+    const { comments, articleSlug } = this.props;
 
     if (comments && !comments.length) return null;
     return (
       <div className="comment-list">
         <h5>Comments</h5>
-        { comments.map(comment => <Comment key={comment.id} comment={comment} />)}
+        { comments.map(comment => (
+          <Comment
+            articleSlug={articleSlug}
+            key={comment.id}
+            comment={comment}
+          />
+        ))}
       </div>
     );
   }

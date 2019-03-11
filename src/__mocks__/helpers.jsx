@@ -38,6 +38,24 @@ export const articles = {
     author: { username: 'janedoe' },
     imgUrl: 'https://img.io',
     tags: [{ name: '' }],
+  }],
+};
+export const comments = {
+  comments: [{
+    id: 1,
+    userId: 1,
+    body: 'First comment',
+    edited: false,
+    author: { id: 1, username: 'johndoe', image: 'avatar.png' },
+    createdAt: '2019-01-23T23:21:33.874Z',
+  },
+  {
+    id: 2,
+    userId: 2,
+    body: 'Second comment',
+    edited: true,
+    author: { id: 2, username: 'janedoe', image: 'avatar.png' },
+    createdAt: '2019-01-23T23:22:33.874Z',
   },
   ],
 };

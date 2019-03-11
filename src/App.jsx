@@ -15,6 +15,7 @@ import ProfilePage from './components/profile/Profile';
 import SocialLogin from './components/auth/SocialMediaLogin';
 import PasswordReset from './components/auth/PasswordReset';
 import UpdatePassword from './components/auth/UpdatePassword';
+import FollowAuthor from './components/profile/FollowAuthor';
 import NavBar from './components/presentation/NavBar';
 import Footer from './components/presentation/Footer';
 import NotFoundPage from './components/404/NotFoundPage';
@@ -70,6 +71,7 @@ class App extends Component {
             <Route path="/articles" component={AllArticles} />
             <PrivateRoute path="/profile" component={ProfilePage} exact />
             <PrivateRoute path="/profile/articles" component={AllUserArticles} exact />
+            <Route path="/profiles/:username" component={FollowAuthor} />
             <Route path="/social" component={SocialLogin} />
             <Route path="/search" component={SearchResult} />
             <Route path="/reset-password" component={PasswordReset} />

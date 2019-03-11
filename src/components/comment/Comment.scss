@@ -19,6 +19,7 @@
         flex-direction: column;
         margin: 10px;
         padding-bottom: 25px;
+        position: relative;
     }
 
     .comment-author {
@@ -31,5 +32,24 @@
     .comment-date {
         color: darken($color-light-gray, 35%);
         margin-bottom: 8px;
+    }
+
+    button.comment-edit {
+        border-radius: 5px;
+        background-color: $color-white;
+        cursor: pointer;
+        padding: 4px 8px;
+        position: absolute;
+        right: 0;
+        top: 0;
+
+        &:hover {
+            background-color: $color-light-gray;
+        }
+    }
+
+    .is-edited {
+        color: darken($color-light-gray, 30%);
+        font-size: 12px;
     }
 }

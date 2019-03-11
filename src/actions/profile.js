@@ -19,6 +19,19 @@ export const getProfile = () => async (dispatch) => {
   }
 };
 
+export const getOtherProfile = username => async (dispatch) => {
+  try {
+    const { data } = await axios.get(`/profiles/${username}`);
+    dispatch({ type: type.GET_OTHER_PROFILE, payload: data });
+  } catch (error) {
+    const errorMessage = error.response.data.message;
+    dispatch({
+      type: type.GET_OTHER_PROFILE_FAIL_MSG,
+      payload: errorMessage,
+    });
+  }
+};
+
 export const updateProfile = userData => async (dispatch) => {
   try {
     const token = authUtils.getUserToken();
