@@ -111,3 +111,9 @@
     }
   }
 }
+
+@media (max-width: 930px) {
+  .icon-container {
+    flex-direction: column;
+  }
+}

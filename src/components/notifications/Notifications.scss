@@ -1,0 +1,30 @@
+@import "../../assets/sass/partials/colors";
+
+.notifications {
+  margin: 50px auto;
+  max-width: 960px;
+  min-height: 200px;
+}
+
+.notif-header {
+  color: $color-white;
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.notif-body {
+  display: flex;
+  padding: 15px 60px;
+}
+
+.notif-message, .notif-date {
+  display: flex;
+  flex: 1;
+}
+
+.notif-date {
+  justify-content: flex-end;
+}
