@@ -16,10 +16,13 @@ import CommentForm from '../comment/CommentForm';
 import CommentList from '../comment/CommentList';
 import './ViewArticle.scss';
 import { bookmarkArticle, unbookmarkArticle } from '../../actions/reactions/bookmark';
+import FlagArticle from '../presentation/Flag';
+import ReportArticleModal from './ReportArticleModal';
 
 class ViewArticle extends React.Component {
   state = {
     loading: true,
+    reportArticle: false,
   };
 
   componentDidMount = async () => {
@@ -65,8 +68,13 @@ class ViewArticle extends React.Component {
     return bookmarked ? unbookMark(id) : bookMark(slug);
   }
 
+  handleReportArticle = () => {
+    const { reportArticle } = this.state;
+    this.setState({ reportArticle: !reportArticle });
+  }
+
   render() {
-    const { loading } = this.state;
+    const { loading, reportArticle } = this.state;
     const {
       tags,
       message,
@@ -158,6 +166,11 @@ class ViewArticle extends React.Component {
                       handleBookmarkClick={this.handleBookmarkClick}
                       article={article}
                       isBookmarked={bookmarked}
+                    />
+                    <FlagArticle reportArticleCallback={this.handleReportArticle} />
+                    <ReportArticleModal
+                      toggleModal={reportArticle}
+                      onToggleModal={this.handleReportArticle}
                     />
                   </div>
                   <div className="reaction2">

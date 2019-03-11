@@ -12,15 +12,9 @@
   transition: opacity 250ms ease-in-out;
 }
 
-.ReactModal__Body--open {
-  height: 100%;
-  overflow: hidden;
-  position: fixed;
-  width: 100%;
-}
-
 .ReactModalPortal .ReactModal__Overlay--after-open {
   opacity: 1;
+  z-index: 99;
 }
 
 .ReactModalPortal .ReactModal__Overlay--before-close {
