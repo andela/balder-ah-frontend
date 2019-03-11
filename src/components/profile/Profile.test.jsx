@@ -9,7 +9,6 @@ import { Profile } from './Profile';
 import renderWithRouter from '../../__mocks__/helpers';
 import reducers from '../../reducers';
 
-
 describe('<Profile />', () => {
   afterEach(cleanup);
 
@@ -22,8 +21,12 @@ describe('<Profile />', () => {
     bio: 'I am testing this thing',
   };
 
-  const store = createStore(reducers, (applyMiddleware(thunk)));
-  const connectedComponent = <Provider store={store}><Profile {...props} /></Provider>;
+  const store = createStore(reducers, applyMiddleware(thunk));
+  const connectedComponent = (
+    <Provider store={store}>
+      <Profile {...props} />
+    </Provider>
+  );
 
   test('should render correctly', () => {
     renderWithRouter(connectedComponent);

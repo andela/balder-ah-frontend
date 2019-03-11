@@ -7,6 +7,8 @@ const initialState = {
   image: '',
   rating: '0',
   articles: [],
+  isFollowing: null,
+  followers: null,
   error: '',
 };
 
@@ -38,6 +40,15 @@ export default (state = initialState, action) => {
         ...state,
         error: action.payload.message,
       };
+    case type.GET_OTHER_PROFILE:
+      return {
+        ...state,
+        username: action.payload.userProfile.username,
+        email: action.payload.userProfile.email,
+        bio: action.payload.userProfile.bio || 'no bio',
+        image: action.payload.userProfile.image || 'https://data.whicdn.com/images/132992502/large.jpg',
+        rating: action.payload.userProfile.authorRating,
+      };
     case type.GET_USER_ARTICLES:
       return {
         ...state,
@@ -57,6 +68,52 @@ export default (state = initialState, action) => {
       return {
         ...state,
         error: action.payload.message,
+      };
+    case type.GET_OTHER_PROFILE_FAIL_MSG:
+      return {
+        ...state,
+        error: action.payload,
+      };
+    case type.GET_OTHER_FOLLOWERS:
+      return {
+        ...state,
+        followers: action.payload,
+        isFollowing: action.payload.isFollowing,
+      };
+    case type.GET_OTHER_FOLLOWERS_FAIL_MSG:
+      return {
+        ...state,
+        error: action.payload,
+      };
+    case type.FOLLOW:
+      return {
+        ...state,
+        followed: action.payload,
+        followers: {
+          ...state.followers,
+          isFollowing: !state.followers.isFollowing,
+        },
+        isFollowing: true,
+      };
+    case type.FOLLOW_FAIL_MSG:
+      return {
+        ...state,
+        error: action.payload,
+      };
+    case type.UNFOLLOW:
+      return {
+        ...state,
+        unFollowed: action.payload,
+        followers: {
+          ...state.followers,
+          isFollowing: !state.followers.isFollowing,
+        },
+        isFollowing: false,
+      };
+    case type.UNFOLLOW_FAIL_MSG:
+      return {
+        ...state,
+        error: action.payload,
       };
     default:
       return state;
